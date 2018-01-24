@@ -16,7 +16,7 @@ import org.usfirst.frc.team4141.robot.subsystems.MDDriveSubsystem;
  * 
  * @see RopeSubsystem
  */
-public class AUTOPosOne_RLR extends MDCommand {
+public class AUTOPosThree_RRR extends MDCommand {
 	
 	private AutonomousSubsystem autoSubsystem;
 	
@@ -32,7 +32,7 @@ public class AUTOPosOne_RLR extends MDCommand {
 	 * @param name the default name used after the string in the constructor
 	 * @return true if the ropeSubsystem is found, false if not.
 	 */
-	public AUTOPosOne_RLR(MDRobotBase robot, String name) {
+	public AUTOPosThree_RRR(MDRobotBase robot, String name) {
 		super(robot, name);
 		if(!getRobot().getSubsystems().containsKey("autoSubsystem")){
 			log(Level.ERROR, "initialize()", "Autonomous subsystem not found");
@@ -64,8 +64,8 @@ public class AUTOPosOne_RLR extends MDCommand {
 	 * it reads no input from the driver. 
 	 */
 	protected void execute() {
-		if (autoSubsystem!=null)autoSubsystem.AUTOPosOne_RLR();
-		log(Level.DEBUG,"execute()","Position 1 RLR");
+		if (autoSubsystem!=null)autoSubsystem.AUTOPosThree_RRR();
+		log(Level.DEBUG,"execute()","Position 3 RRR");
 	}
 	
 	/**
