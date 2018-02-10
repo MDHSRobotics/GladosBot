@@ -25,5 +25,21 @@ public abstract class MDCommandGroup extends CommandGroup {
 	public MDRobotBase getRobot() {
 		return robot;
 	}
+	
+	public String toString() {
+		String objectString;
+		objectString = "\n===========================================";
+		objectString += "\nCommand Group class = " + this.getClass().getName();
+		objectString += "\nCommand Group name = "  + this.getName();
+		objectString += "\nSubsystem = "  + this.getSubsystem();
+		objectString += "\nIs Canceled = "  + this.isCanceled();
+		objectString += "\nIs Completed = "  + this.isCompleted();
+		objectString += "\nIs Finished = "  + this.isFinished();
+		objectString += "\nIs Interruptible = "  + this.isInterruptible();
+		objectString += "\nIs Running = "  + this.isRunning();
+		
+		return objectString;
+	}
+
 
 }
