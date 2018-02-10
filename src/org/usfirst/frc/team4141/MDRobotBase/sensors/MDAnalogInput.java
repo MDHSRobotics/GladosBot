@@ -22,13 +22,13 @@ public class MDAnalogInput extends AnalogInput implements Sensor {
 	public MDAnalogInput(String name, int channel) {
 		this(null,name,channel);
 	}
-	@Override
-	public String getName() {
-		return name;
-	}
-	public void setName(String name){
-		this.name = name;
-	}
+//	@Override
+//	public String getName() {
+//		return name;
+//	}
+//	public void setName(String name){
+//		this.name = name;
+//	}
 	
 	public String toJSON(){
 		StringBuilder sb = new StringBuilder();
@@ -57,7 +57,7 @@ public class MDAnalogInput extends AnalogInput implements Sensor {
 		this.observe = observe;
 	}
 	@Override
-	public MDSubsystem getSubsystem() {
+	public MDSubsystem getSubsystemObject() {
 		return subsystem;
 	}
 	@Override

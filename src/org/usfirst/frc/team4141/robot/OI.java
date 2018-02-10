@@ -9,8 +9,8 @@ import org.usfirst.frc.team4141.MDRobotBase.RioHID;
 import org.usfirst.frc.team4141.robot.commands.CloseClaw;
 import org.usfirst.frc.team4141.robot.commands.ExtendCommand;
 import org.usfirst.frc.team4141.robot.commands.LowerCommand;
-import org.usfirst.frc.team4141.robot.commands.MDMoveCommand;
-import org.usfirst.frc.team4141.robot.commands.MDMoveCommand.Direction;
+//import org.usfirst.frc.team4141.robot.commands.MDMoveCommand;
+//import org.usfirst.frc.team4141.robot.commands.MDMoveCommand.Direction;
 import org.usfirst.frc.team4141.robot.commands.MDPrintCommand;
 import org.usfirst.frc.team4141.robot.commands.OpenClaw;
 import org.usfirst.frc.team4141.robot.commands.RetractCommand;
@@ -52,14 +52,32 @@ public class OI extends OIBase{
 			//.whenPressed("A",2,new MDMoveCommand(getRobot(),"reverse command",Direction.reverse))
 			//.whenPressed("B",3,new MDMoveCommand(getRobot(),"right command",Direction.right))
 			//.whenPressed("Y",4,new MDMoveCommand(getRobot(),"forward command",Direction.forward))
-			.whileHeld("5",5,new RiseCommand(getRobot(),"RiseCommand"))
-			.whileHeld("3",3,new LowerCommand(getRobot(),"LowerCommand"))
-			.whileHeld("6",6,new OpenClaw(getRobot(),"OpenClaw"))
-			.whileHeld("4",4,new CloseClaw(getRobot(),"CloseClaw"))
-			.whileHeld("1",1,new ExtendCommand(getRobot(),"ExtendCommand"))
-			.whileHeld("2",2,new RetractCommand(getRobot(),"RetractCommand"))
+//			.whileHeld("5",5,new RiseCommand(getRobot(),"RiseCommand"))
+//			.whileHeld("3",3,new LowerCommand(getRobot(),"LowerCommand"))
+//			.whileHeld("6",6,new OpenClaw(getRobot(),"OpenClaw"))
+//			.whileHeld("4",4,new CloseClaw(getRobot(),"CloseClaw"))
+//			.whileHeld("1",1,new ExtendCommand(getRobot(),"ExtendCommand"))
+//			.whileHeld("2",2,new RetractCommand(getRobot(),"RetractCommand"))	
 			.configure()
 		);
+		
+		add(new MDJoystick(getRobot(), "xbox", 1)
+				//.whenPressed("rightBumper",5,new MDPrintCommand(getRobot(),"Right Bumper Command","Right Bumper Command message"))
+				//.whileHeld("leftBumper",6,new MDPrintCommand(getRobot(),"Left Bumper Command","Left Bumper Command message"))
+			    //the following commands are test move commands useful in testing drive configuration and set up
+			    //comment out and replace as needed
+				//.whenPressed("X",1,new MDMoveCommand(getRobot(),"left command",Direction.left))
+				//.whenPressed("A",2,new MDMoveCommand(getRobot(),"reverse command",Direction.reverse))
+				//.whenPressed("B",3,new MDMoveCommand(getRobot(),"right command",Direction.right))
+				//.whenPressed("Y",4,new MDMoveCommand(getRobot(),"forward command",Direction.forward))
+//				.whileHeld("5",5,new RiseCommand(getRobot(),"RiseCommand"))
+//				.whileHeld("6",6,new LowerCommand(getRobot(),"LowerCommand"))
+//				.whileHeld("3",3,new OpenClaw(getRobot(),"OpenClaw"))
+//				.whileHeld("4",4,new CloseClaw(getRobot(),"CloseClaw"))
+//				.whileHeld("1",1,new ExtendCommand(getRobot(),"ExtendCommand"))
+//				.whileHeld("2",2,new RetractCommand(getRobot(),"RetractCommand"))
+				.configure()
+			);
 
 		//Configure the RioHID here
 		// Uncomment the following to attach a command to the user button on the RoboRio
@@ -71,7 +89,7 @@ public class OI extends OIBase{
 		
 		//Configure the MDConsole OI here		
 		add(new ConsoleOI(getRobot())
-				.whileHeld("RiseCommand",5,new RiseCommand(getRobot(),"RiseCommand"))
+				.whileHeld("RiseCommand",5,new RiseCommand(getRobot()))
 				.whileHeld("LowerCommand",4,new LowerCommand(getRobot(),"LowerCommand"))
 				.whileHeld("OpenClaw",3,new OpenClaw(getRobot(),"CloseClaw"))
 				.whileHeld("CloseClaw",2,new CloseClaw(getRobot(),"CloseClaw"))

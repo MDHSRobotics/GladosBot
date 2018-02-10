@@ -4,7 +4,7 @@ import org.usfirst.frc.team4141.MDRobotBase.MDCommand;
 import org.usfirst.frc.team4141.MDRobotBase.MDRobotBase;
 import org.usfirst.frc.team4141.MDRobotBase.eventmanager.LogNotification.Level;
 import org.usfirst.frc.team4141.robot.subsystems.ClawSubsystem;
-import org.usfirst.frc.team4141.robot.subsystems.LiftSubsystem;
+
 
 
 /**
@@ -33,12 +33,12 @@ public class CloseClaw extends MDCommand {
 	 */
 	public CloseClaw(MDRobotBase robot, String name) {
 		super(robot, name);
-		if(!getRobot().getSubsystems().containsKey("clawSubsystem")){
-			log(Level.ERROR, "initialize()", "Claw subsystem not found");
-			throw new IllegalArgumentException("Claw Subsystem not found");
-		}
-		clawSubsystem = (ClawSubsystem)getRobot().getSubsystems().get("clawSubsystem"); 
-		requires(clawSubsystem);
+//		if(!getRobot().getSubsystems().containsKey("clawSubsystem")){
+//			log(Level.ERROR, "initialize()", "Claw subsystem not found");
+//			throw new IllegalArgumentException("Claw Subsystem not found");
+//		}
+//		clawSubsystem = (ClawSubsystem)getRobot().getSubsystems().get("clawSubsystem"); 
+//		requires(clawSubsystem);
 	}
 
 	// ------------------------------------------------ //

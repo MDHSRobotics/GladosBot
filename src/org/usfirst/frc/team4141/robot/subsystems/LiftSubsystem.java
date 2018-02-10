@@ -4,6 +4,7 @@ import org.usfirst.frc.team4141.MDRobotBase.MDRobotBase;
 import org.usfirst.frc.team4141.MDRobotBase.MDSubsystem;
 import org.usfirst.frc.team4141.MDRobotBase.config.ConfigSetting;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
 
 /**
@@ -16,6 +17,7 @@ public class LiftSubsystem extends MDSubsystem {
 	private double liftSpeed=0.75;
 	private SpeedController liftSpeedController;
 	public static String motorName="liftSpeedController";
+	private double governor = 1.0;
 	
 	// ------------------------------------------------ //
 	
@@ -54,10 +56,26 @@ public class LiftSubsystem extends MDSubsystem {
 	 * This calls the variable ropeController to go in a positive direction
 	 * which raises the robot up the rope.
 	 */
-	public void raise(){
+	
+//	public void arcadeLift(Joystick xbox) {
+//		 // double rightTriggerValue = joystick.getRawAxis(3);
+//		 //	double leftTriggerValue = -joystick.getRawAxis(2);
+//			double forwardAxisValue = -xbox.getRawAxis(1);
+//			double forward = (forwardAxisValue)*(1.0-(1.0-governor));
+//		  	double rotate = -xbox.getRawAxis(2); //(Changed to accompass shifting w/controller and deadzoned)
+//	  	  //debug("forward = " + forward + ", rotate = " + rotate);
+//		  	double[] speeds = interpolator.calculate(forward, rotate);
+//		    //debug("left: "+speeds[0]+", right: "+speeds[1]);
+//		  	differentialDrive.tankDrive(-speeds[0], -speeds[1]);
+//		}
+//		
+	public void raise(Joystick xbox){
 		//positive speed=wind
 		//negative speed=unwind
-		liftSpeedController.set(liftSpeed);
+		double liftAxisValue = xbox.getRawAxis(2);
+		double upwardSpeed = (liftAxisValue)*(1.0-(1.0-governor));
+		liftSpeedController.set(upwardSpeed);
+		debug("lift speed is at " + upwardSpeed);
 	}
 	
 	/**
@@ -88,6 +106,7 @@ public class LiftSubsystem extends MDSubsystem {
 	@Override
 	protected void setUp() {
 		if(getConfigSettings().containsKey("liftSpeed")) liftSpeed = getConfigSettings().get("liftSpeed").getDouble();
+		if(getConfigSettings().containsKey("governor")) governor = getConfigSettings().get("governor").getDouble();
 		
 	}
 
@@ -99,6 +118,7 @@ public class LiftSubsystem extends MDSubsystem {
 	@Override
 	public void settingChangeListener(ConfigSetting changedSetting) {
 		if(changedSetting.getName().equals("liftSpeed")) liftSpeed = changedSetting.getDouble();
+		if(changedSetting.getName().equals("governor")) governor = changedSetting.getDouble();
 
 	}
 

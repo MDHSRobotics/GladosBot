@@ -5,7 +5,7 @@ import org.usfirst.frc.team4141.MDRobotBase.MDSubsystem;
 public interface Sensor {
 	String getName();
 	SensorReading[] getReadings();
-	MDSubsystem getSubsystem();
+	MDSubsystem getSubsystemObject();
 	Sensor setSubsystem(MDSubsystem subsystem);
 	void refresh();
 	void setName(String name);

@@ -26,9 +26,9 @@ public class MD_BuiltInAccelerometer extends BuiltInAccelerometer implements Sen
 		this(null);
 	}
 
-	public void setName(String name){
-		this.name = name;
-	}	
+//	public void setNewName(String name){
+//		this.name = name;
+//	}	
 	public void refresh(){
 		int i=0;
 		((AnalogSensorReading)readings[i++]).setValue(getX());
@@ -36,10 +36,10 @@ public class MD_BuiltInAccelerometer extends BuiltInAccelerometer implements Sen
 		((AnalogSensorReading)readings[i++]).setValue(getZ());
 	}
 
-	@Override
-	public String getName() {
-		return name;
-	}
+//	@Override
+//	public String getNewName() {
+//		return name;
+//	}
 
 	public SensorReading[] getReadings() {
 		return readings;
@@ -56,7 +56,7 @@ public class MD_BuiltInAccelerometer extends BuiltInAccelerometer implements Sen
 	}
 
 	@Override
-	public MDSubsystem getSubsystem() {
+	public MDSubsystem getSubsystemObject() {
 		return subsystem;
 	}
 	@Override

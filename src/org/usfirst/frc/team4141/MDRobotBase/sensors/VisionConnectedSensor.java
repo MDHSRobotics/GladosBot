@@ -31,7 +31,7 @@ public class VisionConnectedSensor implements Sensor {
 	}
 
 	@Override
-	public MDSubsystem getSubsystem() {
+	public MDSubsystem getSubsystemObject() {
 		return subsystem;
 	}
 

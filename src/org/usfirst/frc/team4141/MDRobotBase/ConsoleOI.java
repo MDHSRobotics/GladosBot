@@ -5,7 +5,7 @@ import java.util.Hashtable;
 import org.usfirst.frc.team4141.MDRobotBase.notifications.ConsoleRumbleNotification;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.GenericHID.HIDType;
+//import edu.wpi.first.wpilibj.GenericHID.HIDType;
 import edu.wpi.first.wpilibj.command.Command;
 
 

@@ -4,7 +4,6 @@ import org.usfirst.frc.team4141.MDRobotBase.MDCommand;
 import org.usfirst.frc.team4141.MDRobotBase.MDRobotBase;
 import org.usfirst.frc.team4141.MDRobotBase.eventmanager.LogNotification.Level;
 import org.usfirst.frc.team4141.robot.subsystems.ClawSubsystem;
-import org.usfirst.frc.team4141.robot.subsystems.LiftSubsystem;
 
 
 /**
@@ -39,6 +38,9 @@ public class ExtendCommand extends MDCommand {
 		}
 		clawSubsystem = (ClawSubsystem)getRobot().getSubsystems().get("clawSubsystem"); 
 		requires(clawSubsystem);
+		System.out.println("Extend Command Constructor");
+		System.out.println(clawSubsystem.toString());
+		
 	}
 
 	// ------------------------------------------------ //
@@ -63,6 +65,7 @@ public class ExtendCommand extends MDCommand {
 	 * it reads no input from the driver. 
 	 */
 	protected void execute() {
+		System.out.println("In extend Command.execute " + clawSubsystem.getName());
 		if (clawSubsystem!=null)clawSubsystem.extend();
 		log(Level.DEBUG,"execute()","Extending");
 }
@@ -73,7 +76,6 @@ public class ExtendCommand extends MDCommand {
 	 */
 	@Override
 		protected void end() {
-			
 		clawSubsystem.stopextend();
 			
 		}

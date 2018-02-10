@@ -15,3 +15,6 @@ hs_err_pid*
 !tools/
 !tools/*
 /bin/
+src/com/analog/adis16448/frc/ADIS16448_IMU.java
+README.md
+*.java

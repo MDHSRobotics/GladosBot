@@ -3,7 +3,7 @@ package org.usfirst.frc.team4141.MDRobotBase;
 
 
 import edu.wpi.first.wpilibj.Notifier;
-import edu.wpi.first.wpilibj.GenericHID.HIDType;
+//import edu.wpi.first.wpilibj.GenericHID.HIDType;
 import edu.wpi.first.wpilibj.buttons.InternalButton;
 
 public class RioHID extends MDGenericHID {

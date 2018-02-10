@@ -74,13 +74,13 @@ public class MD_IMU extends ADIS16448_IMU implements Sensor{
 		((AnalogSensorReading)readings[i++]).setValue(getLastSampleTime());
 	}
 
-	@Override
-	public String getName() {
-		return name;
-	}
-	public void setName(String name){
-		this.name = name;
-	}
+//	@Override
+//	public String getName() {
+//		return name;
+//	}
+//	public void setName(String name){
+//		this.name = name;
+//	}
 	
 	@Override
 	public SensorReading[] getReadings() {
@@ -96,7 +96,7 @@ public class MD_IMU extends ADIS16448_IMU implements Sensor{
 		this.observe = observe;
 	}
 	@Override
-	public MDSubsystem getSubsystem() {
+	public MDSubsystem getSubsystemObject() {
 		return subsystem;
 	}
 	@Override

@@ -3,9 +3,9 @@ package org.usfirst.frc.team4141.MDRobotBase.sensors;
 import org.usfirst.frc.team4141.MDRobotBase.MDRobotBase;
 import org.usfirst.frc.team4141.MDRobotBase.MDSubsystem;
 
-import edu.wpi.first.wpilibj.ControllerPower;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.hal.HALUtil;
 
@@ -54,21 +54,21 @@ public class RobotDiagnostics implements Sensor {
 //		readings[i++]=new AnalogSensorReading(this,"ControllerPower.Current3V3", ControllerPower.getCurrent3V3(),false,false);
 //		readings[i++]=new AnalogSensorReading(this,"ControllerPower.Current5V", ControllerPower.getCurrent5V(),false,false);
 //		readings[i++]=new AnalogSensorReading(this,"ControllerPower.Current6V", ControllerPower.getCurrent6V(),false,false);
-		readings[i++]=new AnalogSensorReading(this,"ControllerPower.InputCurrent", ControllerPower.getInputCurrent());
-		readings[i++]=new AnalogSensorReading(this,"ControllerPower.InputVoltage", ControllerPower.getInputVoltage());
+		readings[i++]=new AnalogSensorReading(this,"ControllerPower.InputCurrent", RobotController.getInputCurrent());
+		readings[i++]=new AnalogSensorReading(this,"ControllerPower.InputVoltage", RobotController.getInputVoltage());
 //		readings[i++]=new AnalogSensorReading(this,"ControllerPower.Voltage3V3", ControllerPower.getVoltage3V3(),false,false);
 //		readings[i++]=new AnalogSensorReading(this,"ControllerPower.Voltage5V", ControllerPower.getVoltage5V(),false,false);
 //		readings[i++]=new AnalogSensorReading(this,"ControllerPower.Voltage6V", ControllerPower.getVoltage6V(),false,false);
-		readings[i++]=new AnalogSensorReading(this,"ControllerPower.FaultCount3V3", ControllerPower.getFaultCount3V3());
-		readings[i++]=new AnalogSensorReading(this,"ControllerPower.FaultCount5V", ControllerPower.getFaultCount5V());
-		readings[i++]=new AnalogSensorReading(this,"ControllerPower.FaultCount6V", ControllerPower.getFaultCount6V());
+		readings[i++]=new AnalogSensorReading(this,"ControllerPower.FaultCount3V3", RobotController.getFaultCount3V3());
+		readings[i++]=new AnalogSensorReading(this,"ControllerPower.FaultCount5V", RobotController.getFaultCount5V());
+		readings[i++]=new AnalogSensorReading(this,"ControllerPower.FaultCount6V", RobotController.getFaultCount6V());
 //		readings[i++]=new DigitalSensorReading(this,"ControllerPower.Enabled3V3", ControllerPower.getEnabled3V3(),false,false);
 //		readings[i++]=new DigitalSensorReading(this,"ControllerPower.Enabled5V", ControllerPower.getEnabled5V(),false,false);
 //		readings[i++]=new DigitalSensorReading(this,"ControllerPower.Enabled6V", ControllerPower.getEnabled6V(),false,false);
 		//from DriverStation (5)
 		readings[i++]=new AnalogSensorReading(this,"DriverStation.Location", DriverStation.getInstance().getLocation(),false,false);
 		readings[i++]=new AnalogSensorReading(this,"DriverStation.Alliance", DriverStation.getInstance().getAlliance().ordinal(),false,false);
-		readings[i++]=new DigitalSensorReading(this,"DriverStation.isBrownedOut", DriverStation.getInstance().isBrownedOut());
+		readings[i++]=new DigitalSensorReading(this,"DriverStation.isBrownedOut", RobotController.isBrownedOut());
 		readings[i++]=new DigitalSensorReading(this,"DriverStation.isDSAttached", DriverStation.getInstance().isDSAttached(),true,false);
 		readings[i++]=new DigitalSensorReading(this,"DriverStation.isFMSAttached", DriverStation.getInstance().isFMSAttached(),true,false);
 //		readings[i++]=new DigitalSensorReading(this,"DriverStation.isSysActive", DriverStation.getInstance().isSysActive());
@@ -139,14 +139,14 @@ public class RobotDiagnostics implements Sensor {
 //		((AnalogSensorReading)readings[i++]).setValue(ControllerPower.getCurrent3V3());
 //		((AnalogSensorReading)readings[i++]).setValue(ControllerPower.getCurrent5V());
 //		((AnalogSensorReading)readings[i++]).setValue(ControllerPower.getCurrent6V());
-		((AnalogSensorReading)readings[i++]).setValue(ControllerPower.getInputCurrent());
-		((AnalogSensorReading)readings[i++]).setValue(ControllerPower.getInputVoltage());
+		((AnalogSensorReading)readings[i++]).setValue(RobotController.getInputCurrent());
+		((AnalogSensorReading)readings[i++]).setValue(RobotController.getInputVoltage());
 //		((AnalogSensorReading)readings[i++]).setValue(ControllerPower.getVoltage3V3());
 //		((AnalogSensorReading)readings[i++]).setValue(ControllerPower.getVoltage5V());
 //		((AnalogSensorReading)readings[i++]).setValue(ControllerPower.getVoltage6V());
-		((AnalogSensorReading)readings[i++]).setValue(ControllerPower.getFaultCount3V3());
-		((AnalogSensorReading)readings[i++]).setValue(ControllerPower.getFaultCount5V());
-		((AnalogSensorReading)readings[i++]).setValue(ControllerPower.getFaultCount6V());
+		((AnalogSensorReading)readings[i++]).setValue(RobotController.getFaultCount3V3());
+		((AnalogSensorReading)readings[i++]).setValue(RobotController.getFaultCount5V());
+		((AnalogSensorReading)readings[i++]).setValue(RobotController.getFaultCount6V());
 //		((DigitalSensorReading)readings[i++]).setValue(ControllerPower.getEnabled3V3());
 //		((DigitalSensorReading)readings[i++]).setValue(ControllerPower.getEnabled5V());
 //		((DigitalSensorReading)readings[i++]).setValue(ControllerPower.getEnabled6V());
@@ -154,7 +154,7 @@ public class RobotDiagnostics implements Sensor {
 		//from DriverStation (6)
 		((AnalogSensorReading)readings[i++]).setValue(DriverStation.getInstance().getLocation());
 		((AnalogSensorReading)readings[i++]).setValue(DriverStation.getInstance().getAlliance().ordinal());
-		((DigitalSensorReading)readings[i++]).setValue(DriverStation.getInstance().isBrownedOut());
+		((DigitalSensorReading)readings[i++]).setValue(RobotController.isBrownedOut());
 		((DigitalSensorReading)readings[i++]).setValue(DriverStation.getInstance().isDSAttached());
 		((DigitalSensorReading)readings[i++]).setValue(DriverStation.getInstance().isFMSAttached());
 //		((DigitalSensorReading)readings[i++]).setValue(HALUtil.getFPGAButton());
@@ -229,7 +229,7 @@ public class RobotDiagnostics implements Sensor {
 		this.observe = observe;
 	}
 	@Override
-	public MDSubsystem getSubsystem() {
+	public MDSubsystem getSubsystemObject() {
 		return subsystem;
 	}
 	@Override

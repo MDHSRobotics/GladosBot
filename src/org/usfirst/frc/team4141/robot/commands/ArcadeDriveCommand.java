@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4141.robot.commands;
 
 
+import java.util.Hashtable;
+
 import org.usfirst.frc.team4141.MDRobotBase.MDCommand;
 import org.usfirst.frc.team4141.MDRobotBase.MDJoystick;
 import org.usfirst.frc.team4141.MDRobotBase.MDRobotBase;
@@ -12,7 +14,14 @@ public class ArcadeDriveCommand extends MDCommand {
 	MDDriveSubsystem driveSys;
 	public ArcadeDriveCommand(MDRobotBase robot) {
 		super(robot,"ArcadeDriveCommand");
-		MDSubsystem sys = robot.getSubsystems().get("driveSystem");
+		System.out.println("in arcade drive command");
+		System.out.println(robot.toString());
+		Hashtable<String, MDSubsystem> subsystems = robot.getSubsystems();
+		System.out.println(subsystems.toString());
+		System.out.println("\n \n \n \n \n \n \n frgwesgr");
+		System.out.flush();
+		MDSubsystem sys = subsystems.get("driveSystem");
+		System.out.println("in arcade drive command" + sys.toString());
 		requires(sys);
 		driveSys = (MDDriveSubsystem)sys;
     }

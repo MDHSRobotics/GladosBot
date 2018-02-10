@@ -44,7 +44,7 @@ public abstract class ReadingBase implements SensorReading{
 	}
 	public MDSubsystem getSubsystem(){
 		if(sensor!=null){
-			return sensor.getSubsystem();
+			return sensor.getSubsystemObject();
 		}
 		return null;
 	}

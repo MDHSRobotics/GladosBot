@@ -2,12 +2,13 @@ package org.usfirst.frc.team4141.MDRobotBase;
 
 import java.util.Hashtable;
 import java.util.Properties;
+import java.util.Set;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
+//import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.hal.HALUtil;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+//import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 
 import org.usfirst.frc.team4141.MDRobotBase.config.BooleanConfigSetting;
@@ -165,6 +166,8 @@ public abstract class MDRobotBase extends IterativeRobot{
 				 .add("enableWebSockets",new BooleanConfigSetting(true))
 				 .configure()
 		);    	
+		debug("about to call configure robot");
+		System.out.println("print ln about to call configure robot");
     	configureRobot();  
     	oi.configureOI();
     	debug("RobotInit completed");
@@ -243,7 +246,8 @@ public abstract class MDRobotBase extends IterativeRobot{
      */
     @Override
 	public void testPeriodic() {
-        LiveWindow.run();
+//    	  No longer required
+//        LiveWindow.run();
     }
 
 	public void add(SensorReading reading) {
@@ -307,6 +311,7 @@ public abstract class MDRobotBase extends IterativeRobot{
 
 	public void debug(String message) {
 		log(Level.DEBUG, "", message);
+//		System.out.println("Debug; " + message);
 	}
 
 	public MDCommandGroup getAutoCommand() {
@@ -319,6 +324,64 @@ public abstract class MDRobotBase extends IterativeRobot{
 	public boolean hasAutoCommand(String name) {
 		return commandChooser.containsKey(name);
 	}	
+
+	public String toString() {
+		String objectString;
+		objectString = "\n===========================================";
+		objectString += "\nRobot class = " + this.getClass().getName();
+		objectString += "\nRobot name = "  + this.name;
+		objectString += "\nEnabled = " + this.isEnabled();
+		objectString += "\nDisabled = " + this.isDisabled();
+		objectString += "\nAutonomous = " + this.isAutonomous();
+		objectString += "\nTest = " + this.isTest();
+		objectString += "\nOperatorControl = " + this.isOperatorControl();
+
+		
+		if (subsystems != null) {
+			// get set of subsystem keys
+	        Set<String> setOfSubsystemKeys = subsystems.keySet();
+	        
+			objectString += "\nNumber of subsystems = " + setOfSubsystemKeys.size();
+			int i = 1;
+			
+	        // Loop over keys
+	        for (String key : setOfSubsystemKeys) {
+	    		objectString += "\nSubsystem #" + i;
+	    		// Print Subsystem
+	    		objectString += subsystems.get(key).toString();
+	    		++i;
+	        }
+	        objectString += "\nEnd of Subsystems";
+	        objectString += "\n-----------------";
+		}
+		else {
+			objectString += "Warning: subsystems hashtable not defined!";
+		}
+		
+		if (commandChooser != null) {
+			// get set of commandChooser keys
+	        Set<String> setOfCommandChooserKeys = commandChooser.keySet();
+	        
+			objectString += "\nNumber of Command Groups in Command Chooser = " + setOfCommandChooserKeys.size();
+			int i = 1;
+			
+	        // Loop over keys
+	        for (String key : setOfCommandChooserKeys) {
+	    		objectString += "\nCommand Group #" + i;
+	    		// Print Command Group Name
+	    		objectString += commandChooser.get(key).toString();
+	    		++i;
+	        }
+	        objectString += "\nEnd of Command Groups";
+	        objectString += "\n-----------------";
+		}
+		else {
+			objectString += "Warning: comanndChooser hashtable not defined!";
+		}
+		
+		return objectString;
+	}
+
 }
 
 

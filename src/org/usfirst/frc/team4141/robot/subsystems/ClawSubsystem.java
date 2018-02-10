@@ -15,11 +15,11 @@ public class ClawSubsystem extends MDSubsystem {
 	
 	private double clawSpeed=0.75;
 	private SpeedController clawSpeedController;
-	public static String motorName="clawSpeedController";
+	public static String clawMotorName="clawSpeedController";
 	
-	private double extendSpeed=0.75;
+	private double extendSpeed=0.45;
 	private SpeedController extendSpeedController;
-	public static String motorname="extendSpeedController";
+	public static String extendclawMotorName="extendSpeedController";
 	// ------------------------------------------------ //
 	
 	/**
@@ -35,9 +35,10 @@ public class ClawSubsystem extends MDSubsystem {
 		//setCore(true);
 		
 		if(getMotors()==null 
-				|| !getMotors().containsKey(motorName))
+				|| !getMotors().containsKey(clawMotorName))
 			throw new IllegalArgumentException("Invalid motor configuration for Claw system.");
-		clawSpeedController = (SpeedController)(getMotors().get(motorName));
+		clawSpeedController = (SpeedController)(getMotors().get(clawMotorName));
+		extendSpeedController = (SpeedController)(getMotors().get(extendclawMotorName));
 	return this;
 	
 	
@@ -51,6 +52,7 @@ public class ClawSubsystem extends MDSubsystem {
 	 */
 	public ClawSubsystem(MDRobotBase robot, String name) {
 		super(robot, name);
+		System.out.println("\n \n \n \n \n \n \n \n \n Constructing claw subsystem " + name);
 	}
 	
 	// ------------------------------------------------ //
@@ -85,7 +87,6 @@ public class ClawSubsystem extends MDSubsystem {
 	
 	public void extend(){
 		extendSpeedController.set(extendSpeed);
-		
 	}
 	
 	
@@ -96,7 +97,7 @@ public class ClawSubsystem extends MDSubsystem {
 	
 	
 	public void stopextend(){
-		extendSpeedController.set(0);
+		extendSpeedController.stopMotor();
 		
 	}
 	// ------------------------------------------------ //

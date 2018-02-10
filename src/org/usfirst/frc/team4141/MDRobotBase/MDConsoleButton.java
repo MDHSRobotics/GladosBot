@@ -17,7 +17,7 @@ public class MDConsoleButton extends InternalButton {
 
 	public ConsoleOI getConsoleOI(){ return consoleOI;}
 	public int getButtonNumber(){ return buttonNumber;}
-	public String getName(){ return name;}
+//	public String getName(){ return name;}
 	
 	
 	public void cancelWhenPressed(MDCommand command){

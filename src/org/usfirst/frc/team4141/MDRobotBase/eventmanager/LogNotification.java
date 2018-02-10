@@ -3,7 +3,7 @@
  */
 package org.usfirst.frc.team4141.MDRobotBase.eventmanager;
 
-import org.usfirst.frc.team4141.MDRobotBase.eventmanager.LogNotification.Level;
+//import org.usfirst.frc.team4141.MDRobotBase.eventmanager.LogNotification.Level;
 
 /**
  * @author maps

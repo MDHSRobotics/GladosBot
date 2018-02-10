@@ -21,14 +21,14 @@ public class MDDigitalInput extends DigitalInput implements Sensor {
 		readings[0] = new DigitalSensorReading(this,name, get());
 	}
 
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name){
-		this.name = name;
-	}
+//	@Override
+//	public String getName() {
+//		return name;
+//	}
+//
+//	public void setName(String name){
+//		this.name = name;
+//	}
 	
 	public String toJSON(){
 		StringBuilder sb = new StringBuilder();
@@ -57,7 +57,7 @@ public class MDDigitalInput extends DigitalInput implements Sensor {
 		this.observe = observe;
 	}
 	@Override
-	public MDSubsystem getSubsystem() {
+	public MDSubsystem getSubsystemObject() {
 		return subsystem;
 	}
 	@Override

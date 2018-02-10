@@ -1,13 +1,18 @@
 package org.usfirst.frc.team4141.robot;
 
 
+import java.util.Hashtable;
+
 import org.usfirst.frc.team4141.MDRobotBase.MDCommand;
 import org.usfirst.frc.team4141.MDRobotBase.sensors.MD_BuiltInAccelerometer;
 import org.usfirst.frc.team4141.MDRobotBase.sensors.MD_IMU;
 import org.usfirst.frc.team4141.MDRobotBase.MDRobotBase;
+import org.usfirst.frc.team4141.MDRobotBase.MDSubsystem;
 import org.usfirst.frc.team4141.MDRobotBase.config.DoubleConfigSetting;
 import org.usfirst.frc.team4141.MDRobotBase.config.StringConfigSetting;
+import org.usfirst.frc.team4141.robot.commands.ArcadeDriveCommand;
 import org.usfirst.frc.team4141.robot.commands.MDPrintCommand;
+import org.usfirst.frc.team4141.robot.commands.RiseCommand;
 import org.usfirst.frc.team4141.robot.subsystems.AutonomousSubsystem;
 import org.usfirst.frc.team4141.robot.subsystems.ClawSubsystem;
 import org.usfirst.frc.team4141.robot.subsystems.CoreSubsystem;
@@ -16,7 +21,8 @@ import org.usfirst.frc.team4141.robot.subsystems.MDDriveSubsystem;
 import org.usfirst.frc.team4141.robot.subsystems.MDDriveSubsystem.MotorPosition;
 import org.usfirst.frc.team4141.robot.subsystems.MDDriveSubsystem.Type;
 
-import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
@@ -35,6 +41,7 @@ public class Robot extends MDRobotBase {
      * used for any initialization code.
      */
 
+<<<<<<< HEAD
 	public enum fieldPosition {
 		ONE,
 		TWO,
@@ -51,6 +58,25 @@ public class Robot extends MDRobotBase {
 		initAutoCommands();
 		
 
+=======
+	public void teleopInit() {
+		super.teleopInit();
+		RiseCommand riseCommand = new RiseCommand(this);
+		riseCommand.start();
+
+	}
+	@Override
+	protected void configureRobot() {
+
+
+		//A commands needs to be configured for the autonomous mode.
+		//In some cases it is desirable to have more than 1 auto command and make a decision at game time which command to use
+//		setAutonomousCommand(new MDCommand[]{
+//				new MDPrintCommand(this,"AutonomousCommand","AutonomousCommand message")
+//			}, "AutonomousCommand"  //specify the default
+//		);
+		debug("\n \n \n enter configured robot");
+>>>>>>> master
 		//Subsystem to manage robot wide config settings
 		add( new CoreSubsystem(this, "core")
 				 .add("name",new StringConfigSetting("GladosBot"))					//go ahead name your robot
@@ -64,22 +90,31 @@ public class Robot extends MDRobotBase {
 		//We have 2 types of drive systems, tank drive and mecanum drive
 		//uncomment the desired drive system and adjust the motor configuration as needed
 		//Mecanum example :
-		add(new MDDriveSubsystem(this, "driveSystem", Type.TankDrive)
-				.add("accelerometer", new MD_BuiltInAccelerometer())
-				.add("IMU", new MD_IMU())
-				.add(MotorPosition.frontLeft, new CANTalon(1))
-				.add(MotorPosition.frontRight, new CANTalon(2))
-				.add(MotorPosition.rearLeft, new CANTalon(3))
-				.add(MotorPosition.rearRight, new CANTalon(4))
+
+//		add(new MDDriveSubsystem(this, "driveSystem", Type.TankDrive)
+		MDDriveSubsystem driveSubsystem = new MDDriveSubsystem(this, "driveSystem", Type.TankDrive);
+		add(driveSubsystem);
+//		System.out.println("Hashtable after adding drive");
+//		Hashtable<String, MDSubsystem> ht = this.getSubsystems();
+//		System.out.println(ht.toString());
+		driveSubsystem.add("accelerometer", new MD_BuiltInAccelerometer());
+//		System.out.println("\nMDDrive after adding accelerometer");
+//		System.out.println(driveSubsystem.toString());
+		driveSubsystem.add("IMU", new MD_IMU())
+				.add(MotorPosition.left, new WPI_TalonSRX(4))
+				.add(MotorPosition.right, new WPI_TalonSRX(3))
+//				.add(MotorPosition.rearLeft, new WPI_TalonSRX(1))
+//				.add(MotorPosition.rearRight, new WPI_TalonSRX(2))
 				//.add("Drive-F", new DoubleConfigSetting(0.0, 1.0, 0.0))
 		 	    //.add("Drive-P", new DoubleConfigSetting(0.0, 1.0, 0.1))
 				//.add("Drive-I", new DoubleConfigSetting(0.0, 1.0, 0.8))
 				//.add("Drive-D", new DoubleConfigSetting(0.0, 1.0, 0.1))
 				.add("highSpeed", new DoubleConfigSetting(0.0, 1.0, 0.25)) //High Speed - Turn Factor
 		 	    .add("lowSpeed", new DoubleConfigSetting(0.0, 1.0, 0.4)) //Slow Speed - Turn Factor
-				.add("governor", new DoubleConfigSetting(0.0, 1.0, 1.0)) //Speed Governor
-				.configure()
-		);	
+				.add("governor", new DoubleConfigSetting(0.0, 1.0, 1.0)); //Speed Governor
+//				driveSubsystem.configure();
+				driveSubsystem.configure();
+			
 		
 		add(new AutonomousSubsystem(this, "autoSubsystem")
 				.add("scenario1Speed", new DoubleConfigSetting(0.0, 1.0, 0.5))
@@ -87,16 +122,56 @@ public class Robot extends MDRobotBase {
 		);
 		
 		add(new LiftSubsystem(this, "liftSubsystem")
-				.add(LiftSubsystem.motorName, new CANTalon(0))
+				.add(LiftSubsystem.motorName, new WPI_TalonSRX(1))
 				.add("liftSpeed", new DoubleConfigSetting(0.0, 1.0, 0.5))
 				.configure()
 		);
 		
-		add(new ClawSubsystem(this, "clawSubsystem")
-				.add(ClawSubsystem.motorName, new CANTalon(6))
+		ClawSubsystem clawSubsystem = new ClawSubsystem(this, "clawSubsystem");
+		add(clawSubsystem);
+		clawSubsystem.add(ClawSubsystem.clawMotorName, new WPI_TalonSRX(5))
+				.add(ClawSubsystem.extendclawMotorName, new WPI_TalonSRX(6))
 				.add("clawSpeed", new DoubleConfigSetting(0.0, 1.0, 0.5))
-				.configure()
-		);
+				.configure();
+//		System.out.println(clawSubsystem.toString());
+		
+		
+		
+		
+		
+		debug("\n \n \n done with config robot");
+		debug("printing the state of the robot");
+		debug(this.toString());
+
+	}
+
+
+		
+		
+		/*		add(new MDDriveSubsystem(this, "driveSystem", Type.TankDrive)
+		.add("accelerometer", new MD_BuiltInAccelerometer())
+		.add("IMU", new MD_IMU())
+		.add(MotorPosition.frontLeft, new WPI_TalonSRX(1))
+		.add(MotorPosition.frontRight, new WPI_TalonSRX(2))
+		.add(MotorPosition.rearLeft, new WPI_TalonSRX(3))
+		.add(MotorPosition.rearRight, new WPI_TalonSRX(4))
+		//.add("Drive-F", new DoubleConfigSetting(0.0, 1.0, 0.0))
+ 	    //.add("Drive-P", new DoubleConfigSetting(0.0, 1.0, 0.1))
+		//.add("Drive-I", new DoubleConfigSetting(0.0, 1.0, 0.8))
+		//.add("Drive-D", new DoubleConfigSetting(0.0, 1.0, 0.1))
+		.add("highSpeed", new DoubleConfigSetting(0.0, 1.0, 0.25)) //High Speed - Turn Factor
+ 	    .add("lowSpeed", new DoubleConfigSetting(0.0, 1.0, 0.4)) //Slow Speed - Turn Factor
+		.add("governor", new DoubleConfigSetting(0.0, 1.0, 1.0)) //Speed Governor
+		.configure()
+);	
+*/		
+		
+//		add(new ClawSubsystem(this, "clawSubsystem")
+//				.add(ClawSubsystem.motorName, new WPI_TalonSRX(2))
+//				.add(ClawSubsystem.motorName2, new WPI_TalonSRX(0))
+//				.add("clawSpeed", new DoubleConfigSetting(0.0, 1.0, 0.5))
+//				.configure()
+//		);
 		
 		//TankDrive with 2 motors example:
 //		add(new MDDriveSubsystem(this, "driveSystem", Type.TankDrive)
@@ -117,6 +192,7 @@ public class Robot extends MDRobotBase {
 //				.configure()
 //		);	
 		
+<<<<<<< HEAD
 
 	}
 
@@ -189,6 +265,8 @@ private String getColorAssignment(){
 	
 }
 
+=======
+>>>>>>> master
 	
 	//Override lifecycle methods, as needed
 	//	@Override
@@ -210,5 +288,5 @@ private String getColorAssignment(){
 	//		super.onConnect(session);
 	//		...
 	//	}
-		
+	
 }

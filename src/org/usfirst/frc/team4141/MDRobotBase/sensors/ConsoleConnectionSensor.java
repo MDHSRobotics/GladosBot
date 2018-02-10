@@ -30,6 +30,8 @@ public class ConsoleConnectionSensor implements Sensor{
 	
 	public String get(){
 		return reading.getValue();
+	
+	
 	}
 	
 	public void setName(String name){
@@ -58,7 +60,7 @@ public class ConsoleConnectionSensor implements Sensor{
 	}
 
 	@Override
-	public MDSubsystem getSubsystem() {
+	public MDSubsystem getSubsystemObject() {
 		return subsystem;
 	}
 	@Override
