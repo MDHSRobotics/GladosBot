@@ -66,6 +66,7 @@ public class AUTOPosTwo_LRL extends MDCommand {
 	protected void execute() {
 		if (autoSubsystem!=null)autoSubsystem.AUTOPosTwo_LRL();
 		log(Level.DEBUG,"execute()","Position 2 LRL");
+		autoSubsystem.AUTOPosThree_RRR();
 	}
 	
 	/**

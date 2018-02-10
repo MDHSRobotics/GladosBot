@@ -66,6 +66,7 @@ public class AUTOPosTwo_RLR extends MDCommand {
 	protected void execute() {
 		if (autoSubsystem!=null)autoSubsystem.AUTOPosTwo_RLR();
 		log(Level.DEBUG,"execute()","Position 2 RLR");
+		autoSubsystem.AUTOPosTwo_RLR();
 	}
 	
 	/**

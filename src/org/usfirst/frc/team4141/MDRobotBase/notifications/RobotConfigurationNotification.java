@@ -10,7 +10,7 @@ import org.usfirst.frc.team4141.MDRobotBase.sensors.Sensor;
 import org.usfirst.frc.team4141.MDRobotBase.sensors.SensorReading;
 import org.usfirst.frc.team4141.robot.subsystems.WebSocketSubsystem;
 
-import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PWM;
@@ -207,9 +207,9 @@ public class RobotConfigurationNotification extends RobotNotification {
 			sb.append(((PWM)motor).getChannel());
 			sb.append("");
 		}
-		if(motor instanceof CANTalon){
+		if(motor instanceof WPI_TalonSRX){
 			sb.append(", \"channel\":");
-			sb.append(((CANTalon)motor).getDeviceID());
+			sb.append(((WPI_TalonSRX)motor).getDeviceID());
 			sb.append("");
 		}
 		sb.append(", \"isServo\":");

@@ -66,6 +66,7 @@ public class AUTOPosThree_RLR extends MDCommand {
 	protected void execute() {
 		if (autoSubsystem!=null)autoSubsystem.AUTOPosThree_RLR();
 		log(Level.DEBUG,"execute()","Position 3 RLR");
+		autoSubsystem.AUTOPosThree_RLR();
 	}
 	
 	/**

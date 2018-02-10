@@ -56,5 +56,21 @@ public abstract class MDCommand extends Command {
 	public void add(MDSubsystem subsystem) {
 		requires(subsystem);		
 	}
+	
+	public String toString() {
+		String objectString;
+		objectString = "\n===========================================";
+		objectString += "\nCommand class = " + this.getClass().getName();
+		objectString += "\nCommand name = "  + this.getName();
+		objectString += "\nSubsystem = "  + this.getSubsystem();
+		objectString += "\nIs a member of command group " + this.getGroup().getName();
+		objectString += "\nIs Canceled = "  + this.isCanceled();
+		objectString += "\nIs Completed = "  + this.isCompleted();
+		objectString += "\nIs Finished = "  + this.isFinished();
+		objectString += "\nIs Interruptible = "  + this.isInterruptible();
+		objectString += "\nIs Running = "  + this.isRunning();
+		
+		return objectString;
+	}
 
 }

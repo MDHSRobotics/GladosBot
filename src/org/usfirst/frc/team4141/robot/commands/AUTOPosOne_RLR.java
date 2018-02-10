@@ -66,6 +66,7 @@ public class AUTOPosOne_RLR extends MDCommand {
 	protected void execute() {
 		if (autoSubsystem!=null)autoSubsystem.AUTOPosOne_RLR();
 		log(Level.DEBUG,"execute()","Position 1 RLR");
+		autoSubsystem.AUTOPosOne_RLR();
 	}
 	
 	/**

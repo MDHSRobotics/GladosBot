@@ -6,6 +6,7 @@ import org.usfirst.frc.team4141.MDRobotBase.eventmanager.LogNotification.Level;
 import org.usfirst.frc.team4141.robot.subsystems.AutonomousSubsystem;
 import org.usfirst.frc.team4141.robot.subsystems.LiftSubsystem;
 import org.usfirst.frc.team4141.robot.subsystems.MDDriveSubsystem;
+import org.usfirst.frc.team4141.robot.subsystems.AutonomousSubsystem;
 
 
 /**
@@ -66,6 +67,7 @@ public class AUTOPosOne_LLL extends MDCommand {
 	protected void execute() {
 		if (autoSubsystem!=null)autoSubsystem.AUTOPosOne_LLL();
 		log(Level.DEBUG,"execute()","Position 1 LLL");
+		autoSubsystem.AUTOPosOne_LLL();
 	}
 	
 	/**

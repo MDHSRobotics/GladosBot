@@ -66,6 +66,7 @@ public class AUTOPosThree_RRR extends MDCommand {
 	protected void execute() {
 		if (autoSubsystem!=null)autoSubsystem.AUTOPosThree_RRR();
 		log(Level.DEBUG,"execute()","Position 3 RRR");
+		autoSubsystem.AUTOPosThree_RRR();
 	}
 	
 	/**

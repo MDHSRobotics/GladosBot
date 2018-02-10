@@ -66,6 +66,7 @@ public class AUTOPosThree_LLL extends MDCommand {
 	protected void execute() {
 		if (autoSubsystem!=null)autoSubsystem.AUTOPosThree_LLL();
 		log(Level.DEBUG,"execute()","Position 3 LLL");
+		autoSubsystem.AUTOPosThree_LLL();
 	}
 	
 	/**

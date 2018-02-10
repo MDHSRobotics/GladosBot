@@ -206,7 +206,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 	    synchronized (this) {
 	      m_accum_count = 0;
-	      m_accum_gyro_x = 0.0;
+	      m_accum_gyro_x = 0.0;																	
 	      m_accum_gyro_y = 0.0;
 	      m_accum_gyro_z = 0.0;
 	    }
@@ -218,7 +218,7 @@ import edu.wpi.first.wpilibj.Timer;
 	      m_gyro_center_y = m_accum_gyro_y / m_accum_count;
 	      m_gyro_center_z = m_accum_gyro_z / m_accum_count;
 	    }
-	  }
+	  }  
 
 	  private int readRegister(int reg) {
 	    ByteBuffer buf = ByteBuffer.allocateDirect(2);

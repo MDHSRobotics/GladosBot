@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4141.robot.subsystems;
+ package org.usfirst.frc.team4141.robot.subsystems;
 
 import java.util.Date;
 
@@ -16,6 +16,8 @@ import org.usfirst.frc.team4141.robot.commands.ArcadeDriveCommand;
 import org.usfirst.frc.team4141.robot.subsystems.MDDriveSubsystem.MotorPosition;
 import org.usfirst.frc.team4141.robot.subsystems.MDDriveSubsystem.Type;
 
+
+import com.analog.adis16448.frc.ADIS16448_IMU;
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -58,6 +60,10 @@ public class MDDriveSubsystem extends MDSubsystem {
 	private double governor = 1.0;
 	private MD_IMU imu;
 	private TankDriveInterpolator interpolator = new TankDriveInterpolator();
+	private double targetDistance; 
+	private double distanceInFeet;
+	private MDDriveSubsystem driveSystem;
+
 	
 //	private double F=0.0;
 //	private double P=0.0;
@@ -196,6 +202,25 @@ public class MDDriveSubsystem extends MDSubsystem {
 		}
 		robotDrive.stopMotor();
 		return this;
+	}
+	
+	
+	public void driveDistance(double distanceInFeet, double speed){
+		
+		if(encoderDistance < distanceInFeet){
+		driveSystem.forward(speed);
+		}
+	}
+	
+	public void turn(double wantAngle){
+		double currentAngle = getAngle();
+		 
+		while(currentAngle < wantAngle){
+			driveSystem.right(speed);
+		}
+		while(currentAngle > wantAngle){
+			driveSystem.left(speed);
+		}
 	}
 	
 	/**
