@@ -41,6 +41,24 @@ public class Robot extends MDRobotBase {
      * used for any initialization code.
      */
 
+<<<<<<< HEAD
+	public enum fieldPosition {
+		ONE,
+		TWO,
+		THREE
+	}
+	
+	//the starting position needs to be modified for each match
+	
+	private fieldPosition startingPosition = fieldPosition.ONE;
+	
+	@Override
+	protected void configureRobot() {
+		
+		initAutoCommands();
+		
+
+=======
 	public void teleopInit() {
 		super.teleopInit();
 		RiseCommand riseCommand = new RiseCommand(this);
@@ -58,6 +76,7 @@ public class Robot extends MDRobotBase {
 //			}, "AutonomousCommand"  //specify the default
 //		);
 		debug("\n \n \n enter configured robot");
+>>>>>>> master
 		//Subsystem to manage robot wide config settings
 		add( new CoreSubsystem(this, "core")
 				 .add("name",new StringConfigSetting("GladosBot"))					//go ahead name your robot
@@ -173,6 +192,81 @@ public class Robot extends MDRobotBase {
 //				.configure()
 //		);	
 		
+<<<<<<< HEAD
+
+	}
+
+private void initAutoCommands(){
+	//A commands needs to be configured for the autonomous mode.
+			//In some cases it is desirable to have more than 1 auto command and make a decision at game time which command to use
+	MDCommand[] autoCommandArray = new MDCommand[];
+	//autoCommandArray[0] = new  MDPrintCommand(this,"AutonomousCommand","AutonomousCommand message");
+	autoCommandArray[0] = new  AUTOPosOne_LLL(this,"AUTOPosOne_LLL");
+	autoCommandArray[1] = new  AUTOPosOne_LRL(this,"AUTOPosOne_LRL");
+	autoCommandArray[2] = new  AUTOPosOne_RLR(this,"AUTOPosOne_RLR");
+	autoCommandArray[3] = new  AUTOPosOne_RRR(this,"AUTOPosOne_RRR");
+	
+	autoCommandArray[4] = new  AUTOPosTwo_LLL(this,"AUTOPosTwo_LLL");
+	autoCommandArray[5] = new  AUTOPosTwo_LRL(this,"AUTOPosTwo_LRL");
+	autoCommandArray[6] = new  AUTOPosTwo_RLR(this,"AUTOPosTwo_RLR");
+	autoCommandArray[7] = new  AUTOPosTwo_RRR(this,"AUTOPosTwo_RRR");
+	
+	autoCommandArray[8] = new  AUTOPosThree_LLL(this,"AUTOPosThree_LLL");
+	autoCommandArray[9] = new  AUTOPosThree_LRL(this,"AUTOPosThree_LRL");
+	autoCommandArray[10] = new  AUTOPosThree_RLR(this,"AUTOPosThree_RLR");
+	autoCommandArray[11] = new  AUTOPosThree_RRR(this,"AUTOPosThree_RRR");
+
+	
+	setAutonomousCommand(autoCommandArray, "AUTOPosOne_LLL"); 
+}
+
+/**
+ * This function is called once right before the robot goes into autonomous mode.
+ */    
+@Override
+public void autonomousInit() {
+	String commandName;
+	String colorAssignment;
+	
+	//get color assignment for this match
+	colorAssignment = getColorAssignment();
+	
+	switch(startingPosition){
+		case fieldPosition.ONE:
+			commandName = "AutoPos" + "One" + "_" + colorAssignment;
+			break;
+		case fieldPosition.TWO:
+			commandName = "AutoPos" + "Two" + "_" + colorAssignment;
+			break;
+		case fieldPosition.THREE:
+			commandName = "AutoPos" + "Three" + "_" + colorAssignment;
+			break;
+	
+	}
+	
+	setAutoCommand(commandName);
+	
+	if (autonomousCommand != null){
+		debug("autonomous command should start");
+		autonomousCommand.start();
+	}
+	else{
+		debug("autonomousCommand is unexpectedly null");
+	}
+	
+}
+
+
+private String getColorAssignment(){
+	String matchColorAssignment = new String();
+	//insert code here to read color assignment from FMS
+	matchColorAssignment = "LLL";
+	return matchColorAssignment;
+	
+}
+
+=======
+>>>>>>> master
 	
 	//Override lifecycle methods, as needed
 	//	@Override

@@ -51,40 +51,78 @@ public class AutonomousSubsystem extends MDSubsystem {
 	}
 	
 	public void AUTOPosOne_RLR(){
-		driveSystem.forward(.5);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
 	}
 	public void AUTOPosTwo_RLR(){
-		driveSystem.forward(.5);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
 	}
 	public void AUTOPosThree_RLR(){
-		driveSystem.forward(.5);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
 	}
 	public void AUTOPosOne_LRL(){
-		driveSystem.forward(.5);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
 	}
 	public void AUTOPosTwo_LRL(){
-		driveSystem.forward(.5);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
 	}
 	public void AUTOPosThree_LRL(){
-		driveSystem.forward(.5);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
 	}
 	public void AUTOPosOne_LLL(){
-		driveSystem.forward(.5);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(180);
+		driveSystem.driveDistance(10, .5);
+		driveSystem.turn(90);
+		driveSystem.driveDistance(10, .5);
 	}
 	public void AUTOPosTwo_LLL(){
-		driveSystem.forward(.5);
+		driveSystem.driveDistance(10, .5);
 	}
 	public void AUTOPosThree_LLL(){
-		driveSystem.forward(.5);
+		driveSystem.driveDistance(10, .5);
 	}
 	public void AUTOPosOne_RRR(){
-		driveSystem.forward(.5);
+		driveSystem.driveDistance(10, .5);
 	}
 	public void AUTOPosTwo_RRR(){
-		driveSystem.forward(.5);
+		driveSystem.driveDistance(10, .5);
 	}
 	public void AUTOPosThree_RRR(){
-		driveSystem.forward(.5);
+		driveSystem.driveDistance(10, .5);
 	}
 	public void end(){
 		driveSystem.stop();
