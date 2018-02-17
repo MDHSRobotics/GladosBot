@@ -34,12 +34,12 @@ public class TurnCommand extends MDCommand {
 	public TurnCommand(MDRobotBase robot, String name, double targetAngle, double power) {
 		super(robot, name);
 		
-		if(!getRobot().getSubsystems().containsKey("driveSubsystem")){
+		if(!getRobot().getSubsystems().containsKey("driveSystem")){
 			log(Level.ERROR, "initialize()", "Drive subsystem not found");
 			throw new IllegalArgumentException("Drive Subsystem not found");
 		}
-		driveSubsystem = (MDDriveSubsystem)getRobot().getSubsystems().get("driveSubsystem "); 
-		requires(driveSubsystem );
+		driveSubsystem = (MDDriveSubsystem)getRobot().getSubsystems().get("driveSystem"); 
+		requires(driveSubsystem);
 		
 		m_targetAngle = targetAngle;
 		m_power = power;
@@ -88,7 +88,7 @@ public class TurnCommand extends MDCommand {
 	// Execute is called every 20ms - It ensures that the robot is still traveling and computes current angle
 	
 	protected void execute() {
-
+		
 		// The following line is temporary - it just increments currentAngle by +1 or -1 degree depending on sign of target angle
 		m_currentAngle = m_currentAngle + m_targetAngle / Math.abs(m_targetAngle);
 		

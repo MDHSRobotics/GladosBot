@@ -73,7 +73,7 @@ public class ExtendCommand extends MDCommand {
 	 */
 	protected void execute() {
 		if (extendSubsystem!=null)extendSubsystem.extend(xbox);
-		log(Level.DEBUG,"execute()","Extending");
+		//log(Level.DEBUG,"execute()","Extending");
 }
 	
 	/**

@@ -85,7 +85,7 @@ public class LiftSubsystem extends MDSubsystem {
 		double moveSpeed = upwardSpeed-downwardSpeed;
 		liftSpeedController.set(moveSpeed);
 		liftSpeedController2.set(moveSpeed);
-		debug("lift speed is at " + moveSpeed);
+		//debug("lift speed is at " + moveSpeed);
 	}
 	
 	/**

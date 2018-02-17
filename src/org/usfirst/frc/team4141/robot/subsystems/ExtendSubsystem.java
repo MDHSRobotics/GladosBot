@@ -66,7 +66,7 @@ public class ExtendSubsystem extends MDSubsystem {
 //		double downwardSpeed = (downwardAxisValue)*(1.0-(1.0-governor));
 //		double moveSpeed = upwardSpeed-downwardSpeed;
 		extendSpeedController.set(upwardSpeed);
-		debug("lift speed is at " + upwardSpeed);
+		//debug("lift speed is at " + upwardSpeed);
 	}
 	
 	

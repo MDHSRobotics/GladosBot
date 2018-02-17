@@ -479,7 +479,7 @@ public class MDDriveSubsystem extends MDSubsystem {
 			mecanumDrive.drivePolar(speed, direction, 0);
 			break;
 		default:
-			debug("speed =" + speed);
+			// debug("speed =" + speed); // <--- Enable for speed debug
 			differentialDrive.tankDrive(this.speed, this.speed);
 		}
 	}
