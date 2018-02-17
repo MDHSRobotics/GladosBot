@@ -68,7 +68,7 @@ public class ClawCommand extends MDCommand {
 	 */
 	protected void execute() {
 		if (clawSubsystem!=null)clawSubsystem.claw(xbox);
-		log(Level.DEBUG,"execute()","Clawing");
+		//log(Level.DEBUG,"execute()","Clawing");
 	}
 	
 	/**

@@ -21,5 +21,17 @@
 	<classpathentry kind="var" path="wpiutil" sourcepath="wpiutil.sources"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/gson-2.6.2.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/jetty-http-9.3.7.v20160115.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/jetty-io-9.3.7.v20160115.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/jetty-server-9.3.7.v20160115.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/jetty-util-9.3.7.v20160115.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/servlet-api-3.1.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/slf4j-simple-1.7.21.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/websocket-api-9.3.7.v20160115.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/websocket-common-9.3.7.v20160115.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/websocket-server-9.3.7.v20160115.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/websocket-servlet-9.3.7.v20160115.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

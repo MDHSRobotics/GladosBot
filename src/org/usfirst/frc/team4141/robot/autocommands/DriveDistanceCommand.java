@@ -17,6 +17,8 @@ public class DriveDistanceCommand extends MDCommand {
 	private boolean m_movingForward;			// True if moving forward; False if moving backward
 	private Timer m_timer; 						// Timer for this command
 	
+	private int counter;
+	
 	private double velocityAtFullPower = 2;     // Velocity (feet/second) at full power - THIS IS A GUESS - CHECK IT!!
 	
 	private MDDriveSubsystem driveSubsystem;
@@ -57,6 +59,7 @@ public class DriveDistanceCommand extends MDCommand {
 	// Initialize is called when the command first starts
 	 
 	protected void initialize() {
+		counter = 0;
 		m_distanceTraveled = 0.;
 		m_elapsedTime = 0.;
 		m_timer.reset();
@@ -81,6 +84,7 @@ public class DriveDistanceCommand extends MDCommand {
 	
 	protected void execute() {
 		
+		
 		// Keep robot moving in the requested direction
 		if (m_movingForward) driveSubsystem.forward(m_power);
 		else driveSubsystem.forward(-m_power);					// Not sure if this is the correct way to move in reverse
@@ -88,7 +92,10 @@ public class DriveDistanceCommand extends MDCommand {
 		m_elapsedTime = m_timer.get();							// Return number of seconds since the timer was started
 		m_distanceTraveled = m_elapsedTime * m_velocity;		// Distance traveled (feet) = elapsed time (seconds) * velocity (feet per second)
 		
-		System.out.println("Executing Drive Distance Command: Elapsed time= " + m_elapsedTime + "; Distance traveled= " + m_distanceTraveled);
+		if (++counter >= 50) {
+			System.out.println("Executing Drive Distance Command: Elapsed time= " + m_elapsedTime + "; Distance traveled= " + m_distanceTraveled);
+			counter = 0;
+		}
 	}
 	
 	// End is called when the command is terminated 
