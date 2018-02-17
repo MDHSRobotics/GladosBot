@@ -12,7 +12,7 @@ public class AUTOPosOne_LLL extends MDCommandGroup {
 		super(robot, name);
 		
 		// Need to insert a Wait command here with a variable wait time
-		
+		addSequential(new WaitCommand(robot, "STEP 0: Wait Command", 5.));
 		addSequential(new DriveDistanceCommand(robot, "STEP 1: DriveDistanceCommand", 10, .5));
 		addSequential(new TurnCommand(robot, "STEP 2: TurnCommand", 180, .5));
 		addSequential(new DriveDistanceCommand(robot, "STEP 3: DriveDistanceCommand", 10, .5));
@@ -23,3 +23,4 @@ public class AUTOPosOne_LLL extends MDCommandGroup {
 	
 }
 
+ 

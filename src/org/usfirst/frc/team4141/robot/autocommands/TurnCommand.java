@@ -5,6 +5,8 @@ import org.usfirst.frc.team4141.MDRobotBase.MDRobotBase;
 import org.usfirst.frc.team4141.MDRobotBase.eventmanager.LogNotification.Level;
 import org.usfirst.frc.team4141.robot.subsystems.MDDriveSubsystem;
 
+import edu.wpi.first.wpilibj.Timer;
+
 
 //  Command to rotate robot
 
@@ -14,6 +16,12 @@ public class TurnCommand extends MDCommand {
 	private double m_power;
 	private double m_currentAngle;
 	private double m_elapsedTime;
+	private int m_counter;
+	private Timer m_timer; 	
+	private double m_angularVelocity;			        // Angular velocity (degrees/second) at current power setting
+	private boolean m_turningRight;						// True if turning right; False if turning left 
+	
+	private double angularVelocityAtFullPower = 70;     // Angular velocity (degrees/second) at full power - THIS IS A GUESS - CHECK IT!!
 	
 	private MDDriveSubsystem driveSubsystem;
 	
@@ -41,10 +49,13 @@ public class TurnCommand extends MDCommand {
 		driveSubsystem = (MDDriveSubsystem)getRobot().getSubsystems().get("driveSystem"); 
 		requires(driveSubsystem);
 		
+		m_turningRight = (targetAngle > 0);       // Use sign of targetAngle to determine whether turning right or left
 		m_targetAngle = targetAngle;
 		m_power = power;
 		m_currentAngle = 0.;
 		m_elapsedTime = 0.;
+		m_timer = new Timer();
+		m_angularVelocity = m_power * angularVelocityAtFullPower;  		// Scale velocity at full power by the current power (which is between 0 and 1.0)
 	}
 
 	
@@ -52,18 +63,23 @@ public class TurnCommand extends MDCommand {
 	 
 	protected void initialize() {
 		//	Initialize timer and other stuff
+		m_timer.reset();
+		m_timer.start();
 		m_elapsedTime = 0.;
-		System.out.println("Starting Turn Command: Target = " + m_targetAngle + " degrees");
+		m_counter = 0; 
+		System.out.println("Starting " + this.getName() + "; Target = " + m_targetAngle + " degrees" + "; Power =" + m_power);
 	}
 		
 	// isFinished is called every 20ms to determine whether the robot has rotated the requested angle
 	
 	protected boolean isFinished() {
+		
 		if(m_targetAngle < 0.){
 			
 			// Negative target angle - that is, counter-clockwise rotation
 			if(m_currentAngle <= m_targetAngle ){
-				System.out.println("Finished Turn Command: Target = " + m_targetAngle + "; Actual = " + m_currentAngle + "Elapsed time = " + m_elapsedTime);
+				m_timer.stop();
+				System.out.println("Finished " + this.getName()+ "; Target = " + m_targetAngle + "; Actual = " + m_currentAngle + "Elapsed time = " + m_elapsedTime);
 				return true;
 			}
 			else {
@@ -74,7 +90,8 @@ public class TurnCommand extends MDCommand {
 			
 			// Positive target angle - that is, clockwise rotation
 			if(m_currentAngle >= m_targetAngle){
-				System.out.println("Finished Turn Command: Target = " + m_targetAngle + "; Actual = " + m_currentAngle + "Elapsed time = " + m_elapsedTime);
+				m_timer.stop();
+				System.out.println("Finished " + this.getName() + "; Target = " + m_targetAngle + "; Actual = " + m_currentAngle + "Elapsed time = " + m_elapsedTime);
 				return true;
 			}
 			else {
@@ -88,14 +105,21 @@ public class TurnCommand extends MDCommand {
 	// Execute is called every 20ms - It ensures that the robot is still traveling and computes current angle
 	
 	protected void execute() {
+		// Keep robot moving in the requested direction
+		if (m_turningRight) driveSubsystem.pivot(m_power);
+		else driveSubsystem.pivot(-m_power);					
 		
-		// The following line is temporary - it just increments currentAngle by +1 or -1 degree depending on sign of target angle
-		m_currentAngle = m_currentAngle + m_targetAngle / Math.abs(m_targetAngle);
+		m_elapsedTime = m_timer.get();		// Return number of seconds since the timer was started
+		
+		m_currentAngle = m_elapsedTime * m_angularVelocity;		// Degrees turned (degrees) = elapsed time (seconds) * angular velocity (degrees per second)
 		
 		// Need to somehow tell the drive subsystem to rotate (pivot) the robot
 		
-		System.out.println("Executing Turn Command: Elapsed time= " + m_elapsedTime + "; Current angle = " + m_currentAngle);
-
+		if(++m_counter >= 50){
+			System.out.println("Executing Turn Command: Elapsed time= " + m_elapsedTime + "; Current angle = " + m_currentAngle);
+			m_counter = 0;
+		}
+		
 	}
 		
 	// End is called when the command is terminated. 

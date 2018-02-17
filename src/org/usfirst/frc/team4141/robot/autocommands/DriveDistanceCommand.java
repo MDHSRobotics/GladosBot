@@ -64,7 +64,7 @@ public class DriveDistanceCommand extends MDCommand {
 		m_elapsedTime = 0.;
 		m_timer.reset();
 		m_timer.start();
-		System.out.println("Starting DriveDistance Command: Target = " + m_targetDistanceInFeet + " feet");
+		System.out.println("Starting "+ this.getName() +"; Target = " + m_targetDistanceInFeet + " feet" + ", Power = " + m_power);
 	}
 		
 	// isFinished is called every 20ms to determine whether the robot has traveled the requested distance
@@ -72,7 +72,7 @@ public class DriveDistanceCommand extends MDCommand {
 	protected boolean isFinished() {
 		if(m_distanceTraveled >= m_targetDistanceInFeet){
 			m_timer.stop();
-			System.out.println("Finished DriveDistance Command: Target = " + m_targetDistanceInFeet + "; Actual = " + m_distanceTraveled + "; Elapsed time = " + m_elapsedTime);
+			System.out.println("Finished "+ this.getName() + "; Target = " + m_targetDistanceInFeet + "; Actual = " + m_distanceTraveled + "; Elapsed time = " + m_elapsedTime);
 			return true;
 		}
 		else {

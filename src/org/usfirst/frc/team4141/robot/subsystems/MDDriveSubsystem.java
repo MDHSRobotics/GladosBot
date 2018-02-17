@@ -376,19 +376,23 @@ public class MDDriveSubsystem extends MDSubsystem {
 	}
 
 	// ------------------------------------------------ //
-
 	
-	public void turn(double wantAngle){
-		double currentAngle = getAngle();
-		 
-		while(currentAngle < wantAngle){
-			driveSystem.right(speed);
-		}
-		while(currentAngle > wantAngle){
-			driveSystem.left(speed);
+	
+	public void pivot(double power) {
+		switch(type){
+		case MecanumDrive:
+			//TODO fix
+//			double magnitude= calculateMagnitude(joystick.getRawAxis(0),joystick.getRawAxis(1));
+//			double direction = calculateDirection(-joystick.getRawAxis(0),-joystick.getRawAxis(1));
+//			double rotation = joystick.getRawAxis(1);
+//			mecanumDrive.drivePolar(magnitude, direction, rotation);
+			break;
+		default:
+		  	double[] speeds = interpolator.calculate(0.0, power);
+		    //debug("left: "+speeds[0]+", right: "+speeds[1]);
+		  	differentialDrive.tankDrive(speeds[0], speeds[1]);
 		}
 	}
-	
 	
 	/**
 	 * This method calls the robot to make a right turn, 

@@ -65,8 +65,8 @@ public class AutonomousSubsystem extends MDSubsystem {
 //		driveSystem.turn(90);
 //		driveSystem.driveDistance(10, .5);
 //		driveSystem.turn(90);
-	//	driveSystem.driveDistance(10, .5);
-	//	driveSystem.turn(90);
+//		driveSystem.driveDistance(10, .5);
+//		driveSystem.turn(90);
 	}
 	public void AUTOPosThree_RLR(){
 	//	driveSystem.driveDistance(10, .5);
@@ -79,7 +79,7 @@ public class AutonomousSubsystem extends MDSubsystem {
 	public void AUTOPosOne_LRL(){
 	//	driveSystem.driveDistance(10, .5);
 	//	driveSystem.turn(90);
-		//driveSystem.driveDistance(10, .5);
+	//	driveSystem.driveDistance(10, .5);
 	//	driveSystem.turn(90);
 	//	driveSystem.driveDistance(10, .5);
 	//	driveSystem.turn(90);
