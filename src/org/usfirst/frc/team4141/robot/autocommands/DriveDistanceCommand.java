@@ -17,7 +17,7 @@ public class DriveDistanceCommand extends MDCommand {
 	private double m_desiredDistanceFT; 
 	private double m_desiredDistanceRaw = m_desiredDistanceFT*15490.66092;
 	private int m_speedFTPS; 
-	private int m_speedRaw = m_speedFTPS*15490/10;
+	private int m_speedRaw = m_speedFTPS*1290/10;
 	
 	private MDDriveSubsystem driveSubsystem;
 	
