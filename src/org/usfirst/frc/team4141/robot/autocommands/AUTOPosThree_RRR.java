@@ -2,6 +2,7 @@ package org.usfirst.frc.team4141.robot.autocommands;
 
 import org.usfirst.frc.team4141.MDRobotBase.MDCommandGroup;
 import org.usfirst.frc.team4141.MDRobotBase.MDRobotBase;
+import org.usfirst.frc.team4141.robot.commands.MDPrintCommand;
 
 
 
@@ -11,6 +12,7 @@ public class AUTOPosThree_RRR extends MDCommandGroup {
 	public AUTOPosThree_RRR(MDRobotBase robot, String name) {
 		super(robot, name);
 		
+		addSequential(new MDPrintCommand(robot, name, "Excecuting command group " + name));
 		// Need to insert a Wait command here with a variable wait time
 		addSequential(new WaitCommand(robot, "STEP 0: Wait Command", 5.));
 		addSequential(new DriveDistanceCommand(robot, "STEP 1: DriveDistanceCommand", 10, .5));

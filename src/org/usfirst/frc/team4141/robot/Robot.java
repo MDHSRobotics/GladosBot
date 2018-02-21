@@ -1,9 +1,8 @@
 package org.usfirst.frc.team4141.robot;
 
 //===================================================================== Imported Systems ===================================================================== //
-import java.util.Hashtable;
+//import java.util.Hashtable;
 
-import org.usfirst.frc.team4141.MDRobotBase.MDCommand;
 import org.usfirst.frc.team4141.MDRobotBase.MDCommandGroup;
 import org.usfirst.frc.team4141.MDRobotBase.sensors.MD_BuiltInAccelerometer;
 import org.usfirst.frc.team4141.MDRobotBase.sensors.MD_IMU;
@@ -11,24 +10,10 @@ import org.usfirst.frc.team4141.MDRobotBase.MDRobotBase;
 import org.usfirst.frc.team4141.MDRobotBase.MDSubsystem;
 import org.usfirst.frc.team4141.MDRobotBase.config.DoubleConfigSetting;
 import org.usfirst.frc.team4141.MDRobotBase.config.StringConfigSetting;
-import org.usfirst.frc.team4141.robot.Robot.fieldPosition;
-import org.usfirst.frc.team4141.robot.autocommands.DriveDistanceCommand;
 import org.usfirst.frc.team4141.robot.autocommands.AUTOPosOne_LLL;
-import org.usfirst.frc.team4141.robot.autocommands.AUTOPosOne_LRL;
-import org.usfirst.frc.team4141.robot.autocommands.AUTOPosOne_RLR;
-import org.usfirst.frc.team4141.robot.autocommands.AUTOPosOne_RRR;
-import org.usfirst.frc.team4141.robot.autocommands.AUTOPosThree_LLL;
-import org.usfirst.frc.team4141.robot.autocommands.AUTOPosThree_LRL;
-import org.usfirst.frc.team4141.robot.autocommands.AUTOPosThree_RLR;
 import org.usfirst.frc.team4141.robot.autocommands.AUTOPosThree_RRR;
-import org.usfirst.frc.team4141.robot.autocommands.AUTOPosTwo_LLL;
-import org.usfirst.frc.team4141.robot.autocommands.AUTOPosTwo_LRL;
-import org.usfirst.frc.team4141.robot.autocommands.AUTOPosTwo_RLR;
-import org.usfirst.frc.team4141.robot.autocommands.AUTOPosTwo_RRR;
-import org.usfirst.frc.team4141.robot.commands.ArcadeDriveCommand;
 import org.usfirst.frc.team4141.robot.commands.ClawCommand;
 import org.usfirst.frc.team4141.robot.commands.ExtendCommand;
-import org.usfirst.frc.team4141.robot.commands.MDPrintCommand;
 import org.usfirst.frc.team4141.robot.commands.LiftCommand;
 import org.usfirst.frc.team4141.robot.subsystems.AutonomousSubsystem;
 import org.usfirst.frc.team4141.robot.subsystems.ClawSubsystem;
@@ -39,13 +24,13 @@ import org.usfirst.frc.team4141.robot.subsystems.MDDriveSubsystem;
 import org.usfirst.frc.team4141.robot.subsystems.MDDriveSubsystem.MotorPosition;
 import org.usfirst.frc.team4141.robot.subsystems.MDDriveSubsystem.Type;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+//import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Victor;
+//import edu.wpi.first.wpilibj.Solenoid;
+//import edu.wpi.first.wpilibj.Talon;
+//import edu.wpi.first.wpilibj.Victor;
 
 /**
  * This system is the entire brain of the robot.
@@ -80,7 +65,7 @@ public class Robot extends MDRobotBase {
 	
 	// ================================================================================ Robot Configuration ========================================================================== //
 	
-	private fieldPosition startingPosition = fieldPosition.ONE;
+	public fieldPosition startingPosition = fieldPosition.ONE;
 	
 	@Override
 	protected void configureRobot() {		
@@ -91,7 +76,7 @@ public class Robot extends MDRobotBase {
 		debug("\nEnter configured Robot");
 		add( new CoreSubsystem(this, "core")
 				 .add("name",new StringConfigSetting("GladosBot")) // <--- Name
-				 .add("autoCommand",new StringConfigSetting("AUTOPosOne_LLL")) // <--- Default AutoCommand
+				 .add("startingPosition",new StringConfigSetting("One")) // <--- Default AutoCommand
 				 .configure()
 		);	
 		
@@ -195,7 +180,7 @@ public class Robot extends MDRobotBase {
 	}
 		
 		private void initAutoCommands(){
-			MDCommandGroup[] autoCommandArray = new MDCommandGroup[1];
+			MDCommandGroup[] autoCommandArray = new MDCommandGroup[2];
 			//autoCommandArray[0] = new  MDPrintCommand(this,"AutonomousCommand","AutonomousCommand message");
 			autoCommandArray[0] = new  AUTOPosOne_LLL(this,"AUTOPosOne_LLL");
 //			autoCommandArray[1] = new  AUTOPosOne_LRL(this,"AUTOPosOne_LRL");
@@ -210,7 +195,7 @@ public class Robot extends MDRobotBase {
 //			autoCommandArray[8] = new  AUTOPosThree_LLL(this,"AUTOPosThree_LLL");
 //			autoCommandArray[9] = new  AUTOPosThree_LRL(this,"AUTOPosThree_LRL");
 //			autoCommandArray[10] = new  AUTOPosThree_RLR(this,"AUTOPosThree_RLR");
-//			autoCommandArray[11] = new  AUTOPosThree_RRR(this,"AUTOPosThree_RRR");
+			autoCommandArray[1] = new  AUTOPosThree_RRR(this,"AUTOPosThree_RRR");
 
 			setAutonomousCommand(autoCommandArray, "AUTOPosOne_LLL"); 
 			
@@ -231,19 +216,23 @@ public class Robot extends MDRobotBase {
 			// Get color assignment for this match
 			colorAssignment = getColorAssignment();
 			
-			switch(startingPosition){
-				case ONE:
-					commandName = "AutoPos" + "One" + "_" + colorAssignment;
-					break;
-				case TWO:
-					commandName = "AutoPos" + "Two" + "_" + colorAssignment;
-					break;
-				case THREE:
-					commandName = "AutoPos" + "Three" + "_" + colorAssignment;
-					break;
+//			switch(startingPosition){
+//				case ONE:
+//					commandName = "AutoPos" + "One" + "_" + colorAssignment;
+//					break;
+//				case TWO:
+//					commandName = "AutoPos" + "Two" + "_" + colorAssignment;
+//					break;
+//				case THREE:
+//					commandName = "AutoPos" + "Three" + "_" + colorAssignment;
+//					break;
+//			
+//			}
 			
-			}
+			MDSubsystem coreSubsystem = getSubsystems().get("core");
+			String startingPositionString = coreSubsystem.getConfigSettings().get("startingPosition").getString();
 			
+			commandName = "AutoPos" + startingPositionString + "_" + colorAssignment;
 			setAutoCommand(commandName);
 			
 			if (autonomousCommand != null) {

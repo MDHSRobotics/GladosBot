@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4141.robot.subsystems;
 
+import java.awt.Robot;
+
 import org.usfirst.frc.team4141.MDRobotBase.MDRobotBase;
 import org.usfirst.frc.team4141.MDRobotBase.MDSubsystem;
 import org.usfirst.frc.team4141.MDRobotBase.config.ConfigSetting;
@@ -28,15 +30,13 @@ public class CoreSubsystem extends MDSubsystem {
 		if(getConfigSettings().containsKey("name")){
 			getRobot().setName(getConfigSettings().get("name").getString());
 		}
-		if(getConfigSettings().containsKey("autoCommand")){
-			getRobot().setAutoCommand(getConfigSettings().get("autoCommand").getString());
+		if(getConfigSettings().containsKey("startingPosition")){
 		}
 	}
 
 	@Override
 	public void settingChangeListener(ConfigSetting changedSetting) {
-		if(getConfigSettings()!=null && getConfigSettings().containsKey("autoCommand")){
-			getRobot().setAutoCommand(getConfigSettings().get("autoCommand").getString());
+		if(getConfigSettings()!=null && getConfigSettings().containsKey("startingPosition")){
 		}	
 		if(getConfigSettings()!=null && getConfigSettings().containsKey("name")){
 			getRobot().setName(getConfigSettings().get("name").getString());
