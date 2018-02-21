@@ -41,6 +41,7 @@ import org.usfirst.frc.team4141.robot.subsystems.MDDriveSubsystem.Type;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.DriverStation;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
@@ -259,7 +260,10 @@ public class Robot extends MDRobotBase {
 		private String getColorAssignment(){
 			String matchColorAssignment = new String();
 			// Insert code here to read color assignment from FMS
-			matchColorAssignment = "LLL";
+			String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+			//make sure to use only the first 3 characters of the game message
+			matchColorAssignment = gameMessage.substring(0,3);
+			debug("Match Color Assignment: " + matchColorAssignment);
 			return matchColorAssignment;
 			
 		}
