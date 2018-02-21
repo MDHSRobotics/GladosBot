@@ -1,23 +1,23 @@
 package org.usfirst.frc.team4141.robot.autocommands;
-import edu.wpi.first.wpilibj.Timer;
+//import edu.wpi.first.wpilibj.Encoder; Nope
 
 import org.usfirst.frc.team4141.MDRobotBase.MDCommand;
 import org.usfirst.frc.team4141.MDRobotBase.MDRobotBase;
 import org.usfirst.frc.team4141.MDRobotBase.eventmanager.LogNotification.Level;
 import org.usfirst.frc.team4141.robot.subsystems.MDDriveSubsystem;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 
 public class DriveDistanceCommand extends MDCommand {
 	
-	private double m_targetDistanceInFeet;      // Desired distance to travel (in feet) - NOTE: Negative means move backwards
-	private double m_power;                     // Power setting for drive: 0.0 to +1.0
-	private double m_distanceTraveled;			// Distanced traveled thus far (in feet)
-	private double m_velocity;			        // Velocity (feet/second) at current power setting
-	private double m_elapsedTime;				// Time (in seconds) that this command has executed
-	private boolean m_movingForward;			// True if moving forward; False if moving backward
-	private Timer m_timer; 						// Timer for this command
-	
-	private double velocityAtFullPower = 2;     // Velocity (feet/second) at full power - THIS IS A GUESS - CHECK IT!!
+//Raw variables are in encoder units (ticks)
+	private double m_desiredDistanceFT; 
+	private double m_desiredDistanceRaw = m_desiredDistanceFT*15490.66092;
+	private int m_speedFTPS; 
+	private int m_speedRaw = m_speedFTPS*15490/10;
 	
 	private MDDriveSubsystem driveSubsystem;
 	
@@ -31,11 +31,13 @@ public class DriveDistanceCommand extends MDCommand {
 	 *  
 	 * @param robot - the robot object
 	 * @param name - name of this DriveDistanceCommand
-	 * @param targetDistanceInFeet - Desired distance to travel (in feet) - NOTE: Negative means move backwards
-	 * @param power - Power setting for drive: 0.0 to +1.0
+	 * @param targetDistanceInFeet - Desired distance to travel (in feet) - NOTE: Negative means move backwards (Maybe...)
+	 * @param speed - The speed of the robot in feet per second (Can be a double, but only go to the tenths place!)
 	 */
-	public DriveDistanceCommand(MDRobotBase robot, String name, double targetDistanceInFeet, double power) {
+	public DriveDistanceCommand(MDRobotBase robot, String name, double targetDistanceInFeet, double speed) {
 		super(robot, name);
+		m_desiredDistanceFT = targetDistanceInFeet;
+		m_speedFTPS = (int)(speed*10);
 		
 		// Make sure that the Drive Subsystem is active
 		if(!getRobot().getSubsystems().containsKey("driveSystem")){
@@ -45,57 +47,22 @@ public class DriveDistanceCommand extends MDCommand {
 		driveSubsystem = (MDDriveSubsystem)getRobot().getSubsystems().get("driveSystem"); 
 		requires(driveSubsystem);
 		
-		m_targetDistanceInFeet = targetDistanceInFeet;
-		m_movingForward = (targetDistanceInFeet > 0);       // Use sign of distance to determine whether moving forward or backward
-		m_power = power;
-		m_velocity = m_power * velocityAtFullPower;  		// Scale velocity at full power by the current power (which is between 0 and 1.0)
-		m_distanceTraveled = 0.;
-		m_elapsedTime = 0.;
-		m_timer = new Timer();
+		
 	}
 
 	// Initialize is called when the command first starts
 	 
 	protected void initialize() {
-		m_distanceTraveled = 0.;
-		m_elapsedTime = 0.;
-		m_timer.reset();
-		m_timer.start();
-		System.out.println("Starting DriveDistance Command: Target = " + m_targetDistanceInFeet + " feet");
+		
+		TalonSRX encoderMotor = new TalonSRX(2); //Set the TalonSRX ID that the encoder is attached to
+		encoderMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		encoderMotor.configClosedloopRamp(2, 0); //Set ramp seconds from stop to full throttle
+		encoderMotor.configMotionCruiseVelocity(m_speedRaw, 0);
+		encoderMotor.configPeakOutputForward(1, 0);
+		encoderMotor.configPeakOutputReverse(-1, 0);
+		encoderMotor.set(ControlMode.MotionMagic, m_desiredDistanceRaw);
+		
 	}
-		
-	// isFinished is called every 20ms to determine whether the robot has traveled the requested distance
-	
-	protected boolean isFinished() {
-		if(m_distanceTraveled >= m_targetDistanceInFeet){
-			m_timer.stop();
-			System.out.println("Finished DriveDistance Command: Target = " + m_targetDistanceInFeet + "; Actual = " + m_distanceTraveled + "; Elapsed time = " + m_elapsedTime);
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	// Execute is called every 20ms - It ensures that the robot is still traveling and computes current distance
-	
-	protected void execute() {
-		
-		// Keep robot moving in the requested direction
-		if (m_movingForward) driveSubsystem.forward(m_power);
-		else driveSubsystem.forward(-m_power);					// Not sure if this is the correct way to move in reverse
-		
-		m_elapsedTime = m_timer.get();							// Return number of seconds since the timer was started
-		m_distanceTraveled = m_elapsedTime * m_velocity;		// Distance traveled (feet) = elapsed time (seconds) * velocity (feet per second)
-		
-		System.out.println("Executing Drive Distance Command: Elapsed time= " + m_elapsedTime + "; Distance traveled= " + m_distanceTraveled);
-	}
-	
-	// End is called when the command is terminated 
-
-	@Override
-		protected void end() {
-		 	// Just stop the DriveSubsystem motors
-			driveSubsystem.stop();
-		}
 }
+	
+	

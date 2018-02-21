@@ -41,10 +41,14 @@ import org.usfirst.frc.team4141.robot.subsystems.MDDriveSubsystem.Type;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * This system is the entire brain of the robot.
@@ -120,7 +124,9 @@ public class Robot extends MDRobotBase {
 				.add(MotorPosition.frontLeft, new WPI_TalonSRX(1))
 				.add(MotorPosition.frontRight, new WPI_TalonSRX(3))
 				.add(MotorPosition.rearLeft, new WPI_TalonSRX(2))
-				.add(MotorPosition.rearRight, new WPI_TalonSRX(4))
+				.add(MotorPosition.rearRight, new WPI_TalonSRX(4));
+				
+				
 				//.add("Drive-F", new DoubleConfigSetting(0.0, 1.0, 0.0))
 		 	    //.add("Drive-P", new DoubleConfigSetting(0.0, 1.0, 0.1))
 				//.add("Drive-I", new DoubleConfigSetting(0.0, 1.0, 0.8))
@@ -258,14 +264,15 @@ public class Robot extends MDRobotBase {
 
 		private String getColorAssignment(){
 			String matchColorAssignment = new String();
-			// Insert code here to read color assignment from FMS
-			matchColorAssignment = "LLL";
+			matchColorAssignment = DriverStation.getInstance().getGameSpecificMessage();
 			return matchColorAssignment;
 			
 		}
 		
 	// =================================================================================================================================================== //		
 	
+		
+		
 }
 
 
