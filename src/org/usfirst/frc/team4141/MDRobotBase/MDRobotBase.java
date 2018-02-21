@@ -273,6 +273,7 @@ public abstract class MDRobotBase extends IterativeRobot{
 		setAutonomousCommand(commands,null);
 		for(MDCommandGroup command : commands){
 			commandChooser.put(command.getName(), command);
+			
 			if(autonomousCommand==null){
 				debug("defaulting autoCommand to "+command.getName());
 				autonomousCommand = command;
@@ -304,6 +305,7 @@ public abstract class MDRobotBase extends IterativeRobot{
 	}
 	
 	public void setAutoCommand(String commandName) {
+		
 		if(commandChooser.containsKey(commandName)){
 			autonomousCommand = commandChooser.get(commandName);
 		}

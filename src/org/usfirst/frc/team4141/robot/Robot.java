@@ -198,6 +198,7 @@ public class Robot extends MDRobotBase {
 			autoCommandArray[1] = new  AUTOPosThree_RRR(this,"AUTOPosThree_RRR");
 
 			setAutonomousCommand(autoCommandArray, "AUTOPosOne_LLL"); 
+
 			
 
 		
@@ -218,13 +219,13 @@ public class Robot extends MDRobotBase {
 			
 //			switch(startingPosition){
 //				case ONE:
-//					commandName = "AutoPos" + "One" + "_" + colorAssignment;
+//					commandName = "AUTOPos" + "One" + "_" + colorAssignment;
 //					break;
 //				case TWO:
-//					commandName = "AutoPos" + "Two" + "_" + colorAssignment;
+//					commandName = "AUTOPos" + "Two" + "_" + colorAssignment;
 //					break;
 //				case THREE:
-//					commandName = "AutoPos" + "Three" + "_" + colorAssignment;
+//					commandName = "AUTOPos" + "Three" + "_" + colorAssignment;
 //					break;
 //			
 //			}
@@ -232,7 +233,7 @@ public class Robot extends MDRobotBase {
 			MDSubsystem coreSubsystem = getSubsystems().get("core");
 			String startingPositionString = coreSubsystem.getConfigSettings().get("startingPosition").getString();
 			
-			commandName = "AutoPos" + startingPositionString + "_" + colorAssignment;
+			commandName = "AUTOPos" + startingPositionString + "_" + colorAssignment;
 			setAutoCommand(commandName);
 			
 			if (autonomousCommand != null) {
