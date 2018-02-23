@@ -14,11 +14,12 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class DriveDistanceCommand extends MDCommand {
 	
 //Raw variables are in encoder units (ticks)
-	private double m_desiredDistanceFT; 
-	private double m_desiredDistanceRaw = m_desiredDistanceFT*15490.66092;
+	private double m_targetDistanceFT; 
+	private double m_targetDistanceRaw = m_targetDistanceFT*15490.66092;
 	private int m_speedFTPS; 
 	private int m_speedRaw = m_speedFTPS*1549/10;
 	//1290.88841
+	private boolean m_reverse;
 	private MDDriveSubsystem driveSubsystem;
 	
 	// ------------------------------------------------ //
@@ -33,11 +34,13 @@ public class DriveDistanceCommand extends MDCommand {
 	 * @param name - name of this DriveDistanceCommand
 	 * @param targetDistanceInFeet - Desired distance to travel (in feet) - NOTE: Negative means move backwards (Maybe...)
 	 * @param speed - The speed of the robot in feet per second (Can be a double, but only go to the tenths place!)
+	 * @param reverse - Set to false if going forward, but set to true of going backwards
 	 */
-	public DriveDistanceCommand(MDRobotBase robot, String name, double targetDistanceInFeet, double speed) {
+	public DriveDistanceCommand(MDRobotBase robot, String name, double targetDistanceInFeet, double speedInFTPS, boolean reverse) {
 		super(robot, name);
-		m_desiredDistanceFT = targetDistanceInFeet;
-		m_speedFTPS = (int)(speed*10);
+		m_targetDistanceFT = targetDistanceInFeet;
+		m_speedFTPS = (int)(speedInFTPS*10);
+		m_reverse = reverse;
 		
 		// Make sure that the Drive Subsystem is active
 		if(!getRobot().getSubsystems().containsKey("driveSystem")){
@@ -55,12 +58,13 @@ public class DriveDistanceCommand extends MDCommand {
 	protected void initialize() {
 		
 		TalonSRX encoderMotor = new TalonSRX(2); //Set the TalonSRX ID that the encoder is attached to
-		encoderMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		encoderMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		encoderMotor.configClosedloopRamp(2, 0); //Set ramp seconds from stop to full throttle
-		encoderMotor.configMotionCruiseVelocity(m_speedRaw, 0);
+		encoderMotor.setInverted(m_reverse); //Invert the signal if needed
+		encoderMotor.configMotionCruiseVelocity(m_speedRaw, 10);
 		encoderMotor.configPeakOutputForward(1, 0);
 		encoderMotor.configPeakOutputReverse(-1, 0);
-		encoderMotor.set(ControlMode.MotionMagic, m_desiredDistanceRaw);
+		encoderMotor.set(ControlMode.MotionMagic, m_targetDistanceRaw);
 		
 	}
 }
