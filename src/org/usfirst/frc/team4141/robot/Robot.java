@@ -12,7 +12,6 @@ import org.usfirst.frc.team4141.MDRobotBase.MDSubsystem;
 import org.usfirst.frc.team4141.MDRobotBase.config.DoubleConfigSetting;
 import org.usfirst.frc.team4141.MDRobotBase.config.StringConfigSetting;
 import org.usfirst.frc.team4141.robot.Robot.fieldPosition;
-import org.usfirst.frc.team4141.robot.autocommands.DriveDistanceCommand;
 import org.usfirst.frc.team4141.robot.autocommands.AUTOPosOne_LLL;
 import org.usfirst.frc.team4141.robot.autocommands.AUTOPosOne_LRL;
 import org.usfirst.frc.team4141.robot.autocommands.AUTOPosOne_RLR;
@@ -121,6 +120,7 @@ public class Robot extends MDRobotBase {
 //		System.out.println("\nMDDrive after adding accelerometer");
 //		System.out.println(driveSubsystem.toString());
 		driveSubsystem.add("IMU", new MD_IMU())
+		
 				.add(MotorPosition.frontLeft, new WPI_TalonSRX(1))
 				.add(MotorPosition.frontRight, new WPI_TalonSRX(3))
 				.add(MotorPosition.rearLeft, new WPI_TalonSRX(2))
@@ -131,9 +131,13 @@ public class Robot extends MDRobotBase {
 		 	    //.add("Drive-P", new DoubleConfigSetting(0.0, 1.0, 0.1))
 				//.add("Drive-I", new DoubleConfigSetting(0.0, 1.0, 0.8))
 				//.add("Drive-D", new DoubleConfigSetting(0.0, 1.0, 0.1))
-				.add("forwardSpeed", new DoubleConfigSetting(0.0, 1.0, 0.25)) //High Speed - Turn Factor
-		 	    .add("rotateSpeed", new DoubleConfigSetting(0.0, 1.0, 1.0)) //Slow Speed - Turn Factor
-				.add("governor", new DoubleConfigSetting(0.0, 1.0, 1.0)); //Speed Governor
+		
+		//TODO fix the add lines below
+//		MDSubsystem subsystem = new MDSubsystem(robot, "subsystem");
+//		subsystem.add("forwardSpeed", new DoubleConfigSetting(0.0, 1.0, 0.25)); //High Speed - Turn Factor
+// 	    subsystem.add("rotateSpeed", new DoubleConfigSetting(0.0, 1.0, 1.0)); //Slow Speed - Turn Factor
+//		subsystem.add("governor", new DoubleConfigSetting(0.0, 1.0, 1.0)); //Speed Governor
+				
 
 // 							These are used for MecanumDrive
 				// ==================================================== //
