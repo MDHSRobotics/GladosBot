@@ -124,7 +124,7 @@ public class Robot extends MDRobotBase {
 				.add(MotorPosition.frontLeft, new WPI_TalonSRX(1))
 				.add(MotorPosition.frontRight, new WPI_TalonSRX(3))
 				.add(MotorPosition.rearLeft, new WPI_TalonSRX(2))
-				.add(MotorPosition.rearRight, new WPI_TalonSRX(4));
+				.add(MotorPosition.rearRight, new WPI_TalonSRX(4))
 				
 				
 				//.add("Drive-F", new DoubleConfigSetting(0.0, 1.0, 0.0))
@@ -133,10 +133,9 @@ public class Robot extends MDRobotBase {
 				//.add("Drive-D", new DoubleConfigSetting(0.0, 1.0, 0.1))
 		
 		//TODO fix the add lines below
-//		MDSubsystem subsystem = new MDSubsystem(robot, "subsystem");
-//		subsystem.add("forwardSpeed", new DoubleConfigSetting(0.0, 1.0, 0.25)); //High Speed - Turn Factor
-// 	    subsystem.add("rotateSpeed", new DoubleConfigSetting(0.0, 1.0, 1.0)); //Slow Speed - Turn Factor
-//		subsystem.add("governor", new DoubleConfigSetting(0.0, 1.0, 1.0)); //Speed Governor
+		.add("forwardSpeed", new DoubleConfigSetting(0.0, 1.0, 0.25)) //High Speed - Turn Factor
+ 	    .add("rotateSpeed", new DoubleConfigSetting(0.0, 1.0, 1.0)) //Slow Speed - Turn Factor
+		.add("governor", new DoubleConfigSetting(0.0, 1.0, 1.0)); //Speed Governor
 				
 
 // 							These are used for MecanumDrive
