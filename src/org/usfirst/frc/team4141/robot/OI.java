@@ -8,6 +8,7 @@ import org.usfirst.frc.team4141.MDRobotBase.MDRobotBase;
 import org.usfirst.frc.team4141.MDRobotBase.OIBase;
 import org.usfirst.frc.team4141.MDRobotBase.RioHID;
 import org.usfirst.frc.team4141.robot.autocommands.AUTOPosOne_LLL;
+import org.usfirst.frc.team4141.robot.autocommands.ClosedLoopDriveDistanceCommand;
 // Commands
 import org.usfirst.frc.team4141.robot.commands.ExtendCommand;
 //import org.usfirst.frc.team4141.robot.commands.MDMoveCommand;
