@@ -76,6 +76,7 @@ public class OI extends OIBase{
 //			.whileHeld("4",4,new CloseClaw(getRobot(),"CloseClaw"))
 //			.whileHeld("1",1,new ExtendCommand(getRobot(),"ExtendCommand"))
 //			.whileHeld("2",2,new RetractCommand(getRobot(),"RetractCommand"))
+			.whenPressed("4",4,new ClosedLoopDriveDistanceCommand(getRobot(), "ClosedLoopDriveDistanceCommand", 10, 2, true))	
 			.whenPressed("5",5,new ToggleOrientationCommand(getRobot(), "ToggleOrientationCommand"))
 			.configure()
 		);
