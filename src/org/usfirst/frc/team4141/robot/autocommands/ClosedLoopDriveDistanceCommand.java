@@ -100,10 +100,10 @@ public class ClosedLoopDriveDistanceCommand extends MDCommand {
 	protected void initialize() {
 		System.out.println("Closed loop initialize");
 		MDRobotBase robot = this.getRobot();
-		MDSubsystem driveSubsystem = robot.getSubsystems().get("driveSystem");		
+		driveSubsystem = (MDDriveSubsystem)robot.getSubsystems().get("driveSystem");		
 		String motorName = MDDriveSubsystem.MotorPosition.rearLeft.toString();
 		talon = (WPI_TalonSRX)driveSubsystem.getMotors().get(motorName);
-		talon = new WPI_TalonSRX(2);
+//		talon = new WPI_TalonSRX(2);
 		
 		/*
 		 * set the allowable closed-loop error, Closed-Loop output will be
@@ -138,9 +138,10 @@ public class ClosedLoopDriveDistanceCommand extends MDCommand {
 			absolutePosition *= -1;
 		/* set the quadrature (relative) sensor to match absolute */
 		talon.setSelectedSensorPosition(absolutePosition, kPIDLoopIdx, kTimeoutMs);
-		
-		talon.set(.5);
-//		talon.set(ControlMode.Position, m_targetDistanceRaw);
+//		driveSubsystem.forward(0.6);
+//		talon.set(.5);
+		System.out.println(talon.isAlive());
+		talon.set(ControlMode.Position, m_targetDistanceRaw);
 	
 		System.out.println("Target Distance in Feet= " + m_targetDistanceFT + "\n Target Distance Raw= " + m_targetDistanceRaw);
 		
@@ -151,14 +152,17 @@ public class ClosedLoopDriveDistanceCommand extends MDCommand {
 		double motorVolts = Math.abs(talon.getMotorOutputVoltage());
 		int motorError = Math.abs(talon.getClosedLoopError(0));
 		if(motorVolts <= VOLTTHRESHOLD || motorError <= ERRORTHRESHOLD){
-			return true;
+			//TODO This is a problem that needs help
+//			return true;
 		}
+		System.out.println(talon.getClosedLoopError(0));
 		return false;
 	}
 	
 	protected void execute() {
-//		talon.set(ControlMode.Position, m_targetDistanceRaw);
-		talon.set(.5);
+		talon.set(ControlMode.Position, m_targetDistanceRaw);
+//		talon.set(.5);
+//		driveSubsystem.forward(0.6);
 	}
 	
 	protected void end() {

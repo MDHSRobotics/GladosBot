@@ -9,6 +9,7 @@ import org.usfirst.frc.team4141.MDRobotBase.OIBase;
 import org.usfirst.frc.team4141.MDRobotBase.RioHID;
 import org.usfirst.frc.team4141.robot.autocommands.AUTOPosOne_LLL;
 import org.usfirst.frc.team4141.robot.autocommands.ClosedLoopDriveDistanceCommand;
+import org.usfirst.frc.team4141.robot.autocommands.DriveDistanceCommand;
 // Commands
 import org.usfirst.frc.team4141.robot.commands.ExtendCommand;
 //import org.usfirst.frc.team4141.robot.commands.MDMoveCommand;
@@ -78,6 +79,7 @@ public class OI extends OIBase{
 //			.whileHeld("1",1,new ExtendCommand(getRobot(),"ExtendCommand"))
 //			.whileHeld("2",2,new RetractCommand(getRobot(),"RetractCommand"))
 			.whenPressed("4",4,new ClosedLoopDriveDistanceCommand(getRobot(), "ClosedLoopDriveDistanceCommand", 10, 2, true))	
+			.whenPressed("3",3,new DriveDistanceCommand(getRobot(), "DriveDistanceCommand", 10, 2))
 			.whenPressed("5",5,new ToggleOrientationCommand(getRobot(), "ToggleOrientationCommand"))
 			.configure()
 		);
