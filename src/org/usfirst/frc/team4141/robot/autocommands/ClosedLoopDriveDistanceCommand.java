@@ -76,9 +76,6 @@ public class ClosedLoopDriveDistanceCommand extends MDCommand {
 		
 		m_targetDistanceFT = targetDistanceInFeet;
 	    m_targetDistanceRaw = (m_targetDistanceFT*12)/m_wheelCircumferenceInches*m_nativeUnitsPerRotation;
-//	    m_targetDistanceRaw = m_targetDistanceFT*2607.59458762;
-//		m_speedFTPS = (int)(speedInFTPS*10);
-//	    m_speedRaw = m_speedFTPS*261/10;
 	    m_speedRaw = (int) ((m_speedFTPS/10)*(12/m_wheelCircumferenceInches)*(m_nativeUnitsPerRotation));
 		kMotorInvert = reverse;
 		
@@ -103,7 +100,6 @@ public class ClosedLoopDriveDistanceCommand extends MDCommand {
 		driveSubsystem = (MDDriveSubsystem)robot.getSubsystems().get("driveSystem");		
 		String motorName = MDDriveSubsystem.MotorPosition.rearLeft.toString();
 		talon = (WPI_TalonSRX)driveSubsystem.getMotors().get(motorName);
-//		talon = new WPI_TalonSRX(2);
 		
 		/*
 		 * set the allowable closed-loop error, Closed-Loop output will be
@@ -138,37 +134,36 @@ public class ClosedLoopDriveDistanceCommand extends MDCommand {
 			absolutePosition *= -1;
 		/* set the quadrature (relative) sensor to match absolute */
 		talon.setSelectedSensorPosition(absolutePosition, kPIDLoopIdx, kTimeoutMs);
-//		driveSubsystem.forward(0.6);
-//		talon.set(.5);
-		System.out.println(talon.isAlive());
+
+		// Set the target for closed loop
 		talon.set(ControlMode.Position, m_targetDistanceRaw);
 	
 		System.out.println("Target Distance in Feet= " + m_targetDistanceFT + "\n Target Distance Raw= " + m_targetDistanceRaw);
 		
 	}
 	protected boolean isFinished() {
-		double VOLTTHRESHOLD = 1.0;
-		int ERRORTHRESHOLD = 600;
+		double kVoltThreshold = 1.0;
+		int kErrorThreshold = 700;
+		
 		double motorVolts = Math.abs(talon.getMotorOutputVoltage());
 		int motorError = Math.abs(talon.getClosedLoopError(0));
-		if(motorVolts <= VOLTTHRESHOLD || motorError <= ERRORTHRESHOLD){
-			//TODO This is a problem that needs help
-//			return true;
+
+		if(motorVolts <= kVoltThreshold && motorError <= kErrorThreshold){
+			System.out.println("Finished: Closed Loop Error = " + motorError + "; Motor output (volts) = " + motorVolts);
+			
+			return true;
 		}
-		System.out.println(talon.getClosedLoopError(0));
+		System.out.println("Still Working: Closed Loop Error = " + motorError + "; Motor output (volts) = " + motorVolts);
 		return false;
 	}
 	
 	protected void execute() {
 		talon.set(ControlMode.Position, m_targetDistanceRaw);
-//		talon.set(.5);
-//		driveSubsystem.forward(0.6);
 	}
 	
 	protected void end() {
 		super.end();
 		talon.set(0);
-		
 	}
 	
 }
