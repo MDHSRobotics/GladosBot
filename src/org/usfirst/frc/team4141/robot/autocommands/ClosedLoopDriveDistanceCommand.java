@@ -26,7 +26,8 @@ public class ClosedLoopDriveDistanceCommand extends MDCommand {
 	private int m_speedRaw;
 	private double m_wheelCircumferenceInches = (Math.PI)*(6); //wheel diameter is 6in
 	private double m_nativeUnitsPerRotation = 4096;
-	private WPI_TalonSRX talon;
+	private WPI_TalonSRX talonL;
+	private WPI_TalonSRX talonR;
 	//1549;
 	//1290.88841
 	
@@ -98,8 +99,15 @@ public class ClosedLoopDriveDistanceCommand extends MDCommand {
 		System.out.println("Closed loop initialize");
 		MDRobotBase robot = this.getRobot();
 		driveSubsystem = (MDDriveSubsystem)robot.getSubsystems().get("driveSystem");		
-		String motorName = MDDriveSubsystem.MotorPosition.rearLeft.toString();
-		talon = (WPI_TalonSRX)driveSubsystem.getMotors().get(motorName);
+		String leftEncoderMotorName = MDDriveSubsystem.MotorPosition.rearLeft.toString();
+		String rightEncoderMotorName = MDDriveSubsystem.MotorPosition.frontRight.toString();
+		talonL = (WPI_TalonSRX)driveSubsystem.getMotors().get(leftEncoderMotorName);
+		talonR = (WPI_TalonSRX)driveSubsystem.getMotors().get(rightEncoderMotorName);
+		initEncoderTalon(talonL);
+		initEncoderTalon(talonR);
+	}
+	
+	private void initEncoderTalon(WPI_TalonSRX talon){
 		
 		/*
 		 * set the allowable closed-loop error, Closed-Loop output will be
@@ -139,31 +147,36 @@ public class ClosedLoopDriveDistanceCommand extends MDCommand {
 		talon.set(ControlMode.Position, m_targetDistanceRaw);
 	
 		System.out.println("Target Distance in Feet= " + m_targetDistanceFT + "\n Target Distance Raw= " + m_targetDistanceRaw);
-		
 	}
+	
 	protected boolean isFinished() {
 		double kVoltThreshold = 1.0;
 		int kErrorThreshold = 700;
 		
-		double motorVolts = Math.abs(talon.getMotorOutputVoltage());
-		int motorError = Math.abs(talon.getClosedLoopError(0));
+		double leftEncoderMotorVolts = Math.abs(talonL.getMotorOutputVoltage());
+		int leftEncoderMotorError = Math.abs(talonL.getClosedLoopError(0));
+		double rightEncoderMotorVolts = Math.abs(talonR.getMotorOutputVoltage());
+		int rightEncoderMotorError = Math.abs(talonR.getClosedLoopError(0));
 
-		if(motorVolts <= kVoltThreshold && motorError <= kErrorThreshold){
-			System.out.println("Finished: Closed Loop Error = " + motorError + "; Motor output (volts) = " + motorVolts);
-			
+		if(leftEncoderMotorVolts <= kVoltThreshold && rightEncoderMotorError <= kErrorThreshold){
+			System.out.println("Finished: Closed Loop Error Left= " + leftEncoderMotorError + "\n Motor output (volts) = " + leftEncoderMotorVolts);
+			System.out.println("\n Finished: Closed Loop Error Right= " + rightEncoderMotorError + "\n Motor output (volts) = " + rightEncoderMotorVolts);
 			return true;
 		}
-		System.out.println("Still Working: Closed Loop Error = " + motorError + "; Motor output (volts) = " + motorVolts);
+		System.out.println("Still Working: Closed Loop Error Left= " + leftEncoderMotorError + "\n Motor output (volts) = " + leftEncoderMotorVolts);
+		System.out.println("\n Still Working: Closed Loop Error Right= " + rightEncoderMotorError + "\n Motor output (volts) = " + rightEncoderMotorVolts);
 		return false;
 	}
 	
 	protected void execute() {
-		talon.set(ControlMode.Position, m_targetDistanceRaw);
+		talonL.set(ControlMode.Position, m_targetDistanceRaw);
+		talonR.set(ControlMode.Position, m_targetDistanceRaw);
 	}
 	
 	protected void end() {
 		super.end();
-		talon.set(0);
+		talonL.set(0);
+		talonR.set(0);
 	}
 	
 }
