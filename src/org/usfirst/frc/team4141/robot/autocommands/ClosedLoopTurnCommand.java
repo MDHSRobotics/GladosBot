@@ -61,7 +61,7 @@ public class ClosedLoopTurnCommand extends MDCommand {
 
 	/* choose based on what direction you want to be positive,
 		this does not affect motor invert. */
-	public static boolean kMotorInvert;
+	public static boolean kMotorInvert = false;
 	
 	// ------------------------------------------------ //
 	
@@ -73,11 +73,10 @@ public class ClosedLoopTurnCommand extends MDCommand {
 	 *  
 	 * @param robot - the robot object
 	 * @param name - name of this Turn Command
-	 * @param targetAngle - Desired angle to turn (degrees)
+	 * @param targetAngle - Desired angle to turn in degrees (positive goes clockwise, negative goes counterclockwise)
 	 * @param speed - The speed of the robot in inches per second
-	 * @param reverse - Set to false if turning right, but set to true of turning left
 	 */
-	public ClosedLoopTurnCommand(MDRobotBase robot, String name, double targetAngle, double speed, boolean reverse) {
+	public ClosedLoopTurnCommand(MDRobotBase robot, String name, double targetAngle, double speed) {
 		super(robot, name);
 		
 		m_targetAngle = targetAngle;
@@ -85,7 +84,7 @@ public class ClosedLoopTurnCommand extends MDCommand {
 		m_rotateDistance = (m_rotationalCircumference)/(360/m_targetAngle);
 	    m_rotateDistanceRaw = (m_rotateDistance)*(m_nativeUnitsPerRotation/m_wheelCircumferenceInches);
 	    m_speedRaw = m_speedIPS*(m_nativeUnitsPerRotation/m_wheelCircumferenceInches)/10;
-		kMotorInvert = reverse;
+		
 		
 		// Make sure that the Drive Subsystem is active
 		if(!getRobot().getSubsystems().containsKey("driveSystem")){
