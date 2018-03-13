@@ -33,5 +33,6 @@
 	<classpathentry kind="var" path="USERLIBS_DIR/websocket-common-9.3.7.v20160115.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/websocket-server-9.3.7.v20160115.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/websocket-servlet-9.3.7.v20160115.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

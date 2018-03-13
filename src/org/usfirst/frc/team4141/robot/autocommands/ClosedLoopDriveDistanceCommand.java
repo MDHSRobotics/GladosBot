@@ -3,7 +3,7 @@ package org.usfirst.frc.team4141.robot.autocommands;
 
 import org.usfirst.frc.team4141.MDRobotBase.MDCommand;
 import org.usfirst.frc.team4141.MDRobotBase.MDRobotBase;
-import org.usfirst.frc.team4141.MDRobotBase.MDSubsystem;
+//import org.usfirst.frc.team4141.MDRobotBase.MDSubsystem;
 import org.usfirst.frc.team4141.MDRobotBase.eventmanager.LogNotification.Level;
 import org.usfirst.frc.team4141.robot.subsystems.MDDriveSubsystem;
 
@@ -22,8 +22,8 @@ public class ClosedLoopDriveDistanceCommand extends MDCommand {
 	//Raw variables are in encoder units (ticks)
 	private double m_targetDistanceFT; 
 	private double m_targetDistanceRaw;
-	private int m_speedFTPS; 
-	private int m_speedRaw;
+	private double m_speedIPS; 
+	private double m_speedRaw;
 	private double m_wheelCircumferenceInches = (Math.PI)*(6); //wheel diameter is 6in
 	private double m_nativeUnitsPerRotation = 4096;
 	private WPI_TalonSRX talonL;
@@ -72,12 +72,13 @@ public class ClosedLoopDriveDistanceCommand extends MDCommand {
 	 * @param speed - The speed of the robot in feet per second (only go to the tenths place!)
 	 * @param reverse - Set to false if going forward, but set to true of going backwards
 	 */
-	public ClosedLoopDriveDistanceCommand(MDRobotBase robot, String name, double targetDistanceInFeet, boolean reverse) {
+	public ClosedLoopDriveDistanceCommand(MDRobotBase robot, String name, double targetDistanceInches, double speed, boolean reverse) {
 		super(robot, name);
 		
-		m_targetDistanceFT = targetDistanceInFeet;
-	    m_targetDistanceRaw = (m_targetDistanceFT*12)/m_wheelCircumferenceInches*m_nativeUnitsPerRotation;
-	    m_speedRaw = (int) ((m_speedFTPS/10)*(12/m_wheelCircumferenceInches)*(m_nativeUnitsPerRotation));
+		m_targetDistanceFT = targetDistanceInches;
+	    m_targetDistanceRaw = (m_targetDistanceFT*12)*(m_nativeUnitsPerRotation/m_wheelCircumferenceInches);
+	    m_speedIPS = speed;
+	    m_speedRaw = ((m_speedIPS)*(m_nativeUnitsPerRotation/m_wheelCircumferenceInches))/(10);
 		kMotorInvert = reverse;
 		
 		// Make sure that the Drive Subsystem is active
@@ -96,7 +97,7 @@ public class ClosedLoopDriveDistanceCommand extends MDCommand {
 	// Initialize is called when the command first starts
 	 
 	protected void initialize() {
-		System.out.println("Closed loop initialize");
+		System.out.println("Closed looped drive initialized");
 		MDRobotBase robot = this.getRobot();
 		driveSubsystem = (MDDriveSubsystem)robot.getSubsystems().get("driveSystem");		
 		String leftEncoderMotorName = MDDriveSubsystem.MotorPosition.rearLeft.toString();
@@ -125,7 +126,7 @@ public class ClosedLoopDriveDistanceCommand extends MDCommand {
 		talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		talon.configClosedloopRamp(2, 0); //Set ramp seconds from stop to full throttle
 		talon.setInverted(kMotorInvert); //Invert the signal if needed
-		talon.configMotionCruiseVelocity(m_speedRaw, 10);
+		talon.configMotionCruiseVelocity((int) m_speedRaw, 10);
 		talon.configPeakOutputForward(1, 0);
 		talon.configPeakOutputReverse(-1, 0);
 
